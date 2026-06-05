@@ -1,0 +1,22 @@
+.login-titulo{
+    font-family: 'Montserrat';
+    color: #fff;
+    font-size: 2em;
+}
+
+.login-container{
+    background-color: #212733;
+    border-radius: 15px;
+    box-shadow: 0 0 3px #9c9c9c; 
+}
+.login-recuperar{
+    cursor: pointer;
+    text-decoration:none;
+    color:#fff;
+    font-family: 'Poppins';
+}
+    
+
+.container-pie-login{
+    border-top: 1px solid #9c9c9c;
+}
