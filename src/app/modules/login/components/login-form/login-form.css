@@ -1,0 +1,40 @@
+.login-form .login-btn{
+    background-color: #F589EE;
+    font-family: 'Poppins';
+    color: #171B24;
+    border: 1px solid #F589EE ;
+    border-radius: 7px;
+ }
+
+.login-form .login-btn:hover{
+    background-color: #171B24;
+    color: #fff;
+    border: 1px solid #fff ;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+ }
+
+.login-form-label{
+    color:#fff;
+    font-family: 'Poppins';
+}
+
+.login-form .login-form-input{
+    border-radius: 7px;
+    background-color: #373D47;
+    border:none;
+    color:#fff; 
+}
+  
+.login-form .login-form-input:focus{
+    outline: none; 
+    box-shadow: 0 0 3px #9c9c9c; 
+    background-color: #373D47;
+    border:none;
+    color:#fff;
+}
+
+
+.login-form .form-mensaje-error{
+    font-family: 'poppins';
+    font-size: 12px;
+}
