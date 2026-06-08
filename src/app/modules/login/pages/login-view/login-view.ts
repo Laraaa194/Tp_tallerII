@@ -3,8 +3,9 @@ import { LoginForm } from '../../components/login-form/login-form';
 
 @Component({
   selector: 'app-login-view',
+  standalone: true,
   imports: [LoginForm],
   templateUrl: './login-view.html',
-  styleUrl: './login-view.css',
+  styleUrls: ['./login-view.css'],
 })
 export class LoginView {}
