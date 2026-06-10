@@ -7,8 +7,9 @@ export const routes: Routes = [
     {
     path: 'productos',
     component: ListProductos
-    }
+    },
+
+    { path: 'login', 
+    component: LoginView }
 ];
-export const routes: Routes = [
-      { path: 'login', component: LoginView }
-];
+
