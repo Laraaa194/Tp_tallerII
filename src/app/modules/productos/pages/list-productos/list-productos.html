@@ -1,0 +1,9 @@
+<div class="titulo">
+    <h3>Tienda</h3>
+</div>
+
+<div class="productos-grid">
+  @for (producto of productos; track producto.id) {
+    <app-producto-card [producto]="producto"></app-producto-card>
+  }
+</div>
