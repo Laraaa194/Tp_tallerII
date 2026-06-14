@@ -1,50 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../interfaces/producto';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductosService {
 
-  private productos: Producto[] = [
-    {
-      id: 1,
-      nombre: 'Notebook',
-      descripcion: 'Notebook gamer',
-      clasificacion: 'Tecnología',
-      precio: 1500,
-      imagenUrl: 'notebook1.png'
-    },
-    {
-      id: 2,
-      nombre: 'Mouse',
-      descripcion: 'Mouse inalámbrico',
-      clasificacion: 'Tecnología',
-      precio: 50,
-      imagenUrl: 'mouse.png'
-    }
-  ];
+private apiUrl = 'http://localhost:3000/api/productos';
 
- getProductos(): Observable<Producto[]> {
-  return of(this.productos);
+constructor(private http: HttpClient) {}
+
+
+getProductos(): Observable<Producto[]> {
+  return this.http.get<Producto[]>(this.apiUrl);
 }
-// Metodo para cuando tengamos bdd 
-// getProductos(): Observable<Producto[]> {
-//   return this.http.get<Producto[]>(`${this.apiUrl}/productos`);
-// }
 
 buscarProductos(termino: string): Observable<Producto[]> {
-  if (!termino.trim()) {
-    return this.getProductos(); // Retorna todos si el input está vacío
-  }
-  const resultado = this.productos.filter(producto =>
-    producto.nombre.toLowerCase().includes(termino.toLowerCase())
-  );
-  return of(resultado);
+  if (!termino.trim()) return this.getProductos();
+  return this.http.get<Producto[]>(`${this.apiUrl}/buscar?termino=${termino}`);
 }
 
-// buscarProductos(termino: string): Observable<Producto[]> {
-//   return this.http.get<Producto[]>(`${this.apiUrl}/productos?search=${termino}`);
-// }
 }

@@ -9,7 +9,7 @@ const port = config.port;
 
 app.use(express.json());
 app.use(cors());
-// app.use(AppRoutes.routes)
+app.use(AppRoutes.routes)
 
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
