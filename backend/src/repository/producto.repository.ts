@@ -23,4 +23,17 @@ export class ProductoRepository {
       precio: p.precio.toNumber()
     }));
   }
+
+  async findById(id: number) {
+  return prisma.producto.findUnique({
+    where: { id }
+  });
+}
+
+async updateStock(id: number, stock: number) {
+  return prisma.producto.update({
+    where: { id },
+    data: { stock }
+  });
+}
 }

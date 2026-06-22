@@ -9,11 +9,14 @@
       <h3>{{ producto.nombre }}</h3>
       <strong class="card-price">${{ producto.precio }}</strong>
     </div>
-
     <p>{{ producto.descripcion }}</p>
+    <p> Cantidad en stock: {{ producto.stock}}</p>
 
     <span>{{ producto.clasificacion }}</span>
 
-    <button>Agregar al carrito</button>
+    <button (click)="agregar(producto.id)">Agregar al carrito</button>
+    
+    @if (mensaje) {
+    <div class="popup"> {{ mensaje }} </div>}
   </div>
 </div>

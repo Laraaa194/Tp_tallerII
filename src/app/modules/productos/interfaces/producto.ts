@@ -6,6 +6,7 @@ export interface Producto {
     clasificacion:string;
     precio: number;
     imagenUrl: string;
+    stock: number;
 } 
 
 

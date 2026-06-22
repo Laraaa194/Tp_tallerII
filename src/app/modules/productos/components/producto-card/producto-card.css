@@ -91,3 +91,24 @@
 .card button:hover {
   background-color: var(--color-accent-hover);
 }
+
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  background: rgba(80, 80, 80, 0.75);
+  color: white; 
+
+  padding: 12px 20px;
+  border-radius: 10px;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+
+  font-size: 14px;
+  font-weight: 500;
+}

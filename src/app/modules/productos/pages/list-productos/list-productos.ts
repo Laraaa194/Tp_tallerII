@@ -25,7 +25,7 @@ export class ListProductos implements OnInit {
   this.productos$ = this.searchSubject.pipe(
     startWith(''), // <--- Esto emite un string vacío apenas te suscribes
     debounceTime(400),
-    distinctUntilChanged(),
+    //distinctUntilChanged(),
     switchMap(termino => this.productosService.buscarProductos(termino)),
     takeUntilDestroyed(this.destroyRef)
   );
@@ -35,4 +35,8 @@ export class ListProductos implements OnInit {
     const value = (event.target as HTMLInputElement).value;
     this.searchSubject.next(value);
   }
+
+  recargarProductos() {
+  this.searchSubject.next('');
+}
 }
