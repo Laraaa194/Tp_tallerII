@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -17,7 +17,7 @@ export class RegisterForm {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
-
+  private cdRef = inject(ChangeDetectorRef);
   registerForm: FormGroup;
   submitMessage: string = '';
   isError: boolean = false;
@@ -42,6 +42,7 @@ export class RegisterForm {
 
   onSubmit() {
     this.submitMessage = '';
+    this.isError = false;
     this.isSubmitted = true;
 
     if (this.registerForm.invalid) {
@@ -56,19 +57,26 @@ export class RegisterForm {
       password: this.registerForm.value.password
     };
 
-    const result = this.userService.registerUser(userData);
+    this.userService.registerUser(userData).subscribe({
 
-    if (result.success) {
-      this.registrationSuccessful = true;
-      this.isSubmitted = false;
+      next: (response) => {
+        this.registrationSuccessful = true;
+        this.isSubmitted = false;
 
-      setTimeout(() => {
-        this.router.navigate(['/login']);
-      }, 3000);
+        this.cdRef.detectChanges();
 
-    } else {
-      this.isError = true;
-      this.submitMessage = result.message;
-    }
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 3000);
+      },
+
+      error: (err) => {
+        this.isError = true;
+        this.registrationSuccessful = false;
+
+        this.submitMessage = err.error?.message || 'Error de conexión con el servidor.';
+      }
+
+    });
   }
 }

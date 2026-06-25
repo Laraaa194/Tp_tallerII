@@ -47,3 +47,4 @@ Thumbs.db
 # Backend
 
 backend/.env
+backend/docker-compose.yml
