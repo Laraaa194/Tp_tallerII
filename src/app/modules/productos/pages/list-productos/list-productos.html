@@ -14,6 +14,6 @@
 
 <div class="productos-grid">
   @for (producto of productos$ | async; track producto.id) {
-    <app-producto-card [producto]="producto"></app-producto-card>
+    <app-producto-card [producto]="producto" (actualizado)="recargarProductos()"></app-producto-card>
   }
 </div>

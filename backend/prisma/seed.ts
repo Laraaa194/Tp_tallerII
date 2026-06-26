@@ -21,6 +21,7 @@ async function main() {
           clasificacion: 'Remeras',
           precio: 12000.00,
           imagenUrl: 'remera-blanca.png',
+          stock: 10,
         },
         {
           nombre: 'Jeans Slim Fit Azul',
@@ -28,6 +29,7 @@ async function main() {
           clasificacion: 'Pantalones',
           precio: 35000.00,
           imagenUrl: 'jeans-slim.png',
+          stock: 10,
         },
         {
           nombre: 'Campera de Cuero Negra',
@@ -35,6 +37,7 @@ async function main() {
           clasificacion: 'Camperas',
           precio: 89000.00,
           imagenUrl: 'campera-cuero.png',
+          stock: 10,
         },
         {
           nombre: 'Vestido Floral Verano',
@@ -42,6 +45,7 @@ async function main() {
           clasificacion: 'Vestidos',
           precio: 28000.00,
           imagenUrl: 'vestido-floral.png',
+          stock: 10,
         },
         {
           nombre: 'Buzo Canguro Gris',
@@ -49,6 +53,7 @@ async function main() {
           clasificacion: 'Buzos',
           precio: 22000.00,
           imagenUrl: 'buzo-gris.png',
+          stock: 10,
         },
       ],
     });
