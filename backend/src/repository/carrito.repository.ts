@@ -37,4 +37,10 @@ export class CarritoRepository {
       data: { cantidad }
     });
   }
+
+  async findById(id: number) {
+    return prisma.carritoItem.findUnique({
+      where: { id }
+    });
+  }
 }

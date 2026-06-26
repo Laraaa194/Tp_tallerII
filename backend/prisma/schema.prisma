@@ -10,14 +10,26 @@ generator client {
 
 datasource db {
 provider  = "mysql"
-
+  url       = env("DATABASE_URL")
 }
+
 model Producto {
-  id          Int    @id @default(autoincrement())
-  nombre      String
-  descripcion String
+  id            Int           @id @default(autoincrement())
+  nombre        String
+  descripcion   String
   clasificacion String
-  precio      Decimal
-  imagenUrl   String
-  
+  precio        Decimal
+  imagenUrl     String
+  stock         Int           @default(0)
+  carritoItems  CarritoItem[]
+}
+
+model CarritoItem {
+  id       Int @id @default(autoincrement())
+  cantidad Int @default(1)
+
+  productoId Int
+  producto   Producto @relation(fields: [productoId], references: [id])
+
+  createdAt DateTime @default(now())
 }

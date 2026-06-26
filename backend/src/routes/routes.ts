@@ -14,6 +14,8 @@ export class AppRoutes {
         router.get('/api/productos/buscar', productoController.buscarProductos);
         router.post("/carrito", carritoController.add.bind(carritoController));
         router.get("/carrito", carritoController.getAll.bind(carritoController));
+        router.patch("/carrito/:id", carritoController.updateCantidad.bind(carritoController));
+        router.delete("/carrito/:id", carritoController.remove.bind(carritoController));
         router.use("/api/auth", authRouter)
         return router
     }

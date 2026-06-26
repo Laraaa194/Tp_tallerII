@@ -1,18 +1,18 @@
 <nav class="navbar">
 
-  <a href="/" class="navbar-brand">
+  <a routerLink="/" class="navbar-brand">
     <span class="brand-icon">✦</span>
     NOVA Tienda
   </a>
 
-  <h2 class="navbar-links">
-    <a href="/productos">Productos</a>
+    <h2 class="navbar-links">
+    <a routerLink="/productos">Productos</a>
   </h2>
 
-  <div class="navbar-actions">
-    <button class="cart-btn">
+    <div class="navbar-actions">
+    <button class="cart-btn" routerLink="/carrito">
       🛒
-      <span class="cart-badge">2</span>
+      <span class="cart-badge">{{ cantidadItems().length }}</span>
     </button>
     <button class="btn-primary">Ingresar</button>
   </div>
