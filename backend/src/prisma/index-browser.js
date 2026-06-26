@@ -171,7 +171,8 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
 
 exports.Prisma.ModelName = {
   Producto: 'Producto',
-  CarritoItem: 'CarritoItem'
+  CarritoItem: 'CarritoItem',
+  User: 'User'
 };
 
 /**
