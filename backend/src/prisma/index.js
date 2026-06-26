@@ -93,9 +93,30 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.ProductoScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  clasificacion: 'clasificacion',
+  precio: 'precio',
+  imagenUrl: 'imagenUrl'
+};
+
+exports.Prisma.SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
+exports.Prisma.ProductoOrderByRelevanceFieldEnum = {
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  clasificacion: 'clasificacion',
+  imagenUrl: 'imagenUrl'
+};
+
 
 exports.Prisma.ModelName = {
-
+  Producto: 'Producto'
 };
 /**
  * Create the Client
@@ -105,14 +126,14 @@ const config = {
   "clientVersion": "7.8.0",
   "engineVersion": "3c6e192761c0362d496ed980de936e2f3cebcd3a",
   "activeProvider": "mysql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n}\n"
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n}\n\nmodel Producto {\n  id            Int     @id @default(autoincrement())\n  nombre        String\n  descripcion   String\n  clasificacion String\n  precio        Decimal\n  imagenUrl     String\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Producto\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nombre\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"descripcion\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"clasificacion\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"precio\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"imagenUrl\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.parameterizationSchema = {
-  strings: JSON.parse("[]"),
-  graph: "AAAA"
+  strings: JSON.parse("[\"where\",\"Producto.findUnique\",\"Producto.findUniqueOrThrow\",\"orderBy\",\"cursor\",\"Producto.findFirst\",\"Producto.findFirstOrThrow\",\"Producto.findMany\",\"data\",\"Producto.createOne\",\"Producto.createMany\",\"Producto.updateOne\",\"Producto.updateMany\",\"create\",\"update\",\"Producto.upsertOne\",\"Producto.deleteOne\",\"Producto.deleteMany\",\"having\",\"_count\",\"_avg\",\"_sum\",\"_min\",\"_max\",\"Producto.groupBy\",\"Producto.aggregate\",\"AND\",\"OR\",\"NOT\",\"id\",\"nombre\",\"descripcion\",\"clasificacion\",\"precio\",\"imagenUrl\",\"equals\",\"in\",\"notIn\",\"lt\",\"lte\",\"gt\",\"gte\",\"not\",\"contains\",\"startsWith\",\"endsWith\",\"search\",\"_relevance\",\"set\",\"increment\",\"decrement\",\"multiply\",\"divide\"]"),
+  graph: "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"
 }
 config.compilerWasm = {
       getRuntime: async () => require('./query_compiler_fast_bg.js'),

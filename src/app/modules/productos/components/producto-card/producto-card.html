@@ -1,0 +1,19 @@
+<div class="card">
+  <img [src]="'images/productos/' + producto.imagenUrl" 
+       [alt]="producto.nombre" 
+       class="card-image" />
+
+  <div class="card-body">
+    
+    <div class="card-header">
+      <h3>{{ producto.nombre }}</h3>
+      <strong class="card-price">${{ producto.precio }}</strong>
+    </div>
+
+    <p>{{ producto.descripcion }}</p>
+
+    <span>{{ producto.clasificacion }}</span>
+
+    <button>Agregar al carrito</button>
+  </div>
+</div>
