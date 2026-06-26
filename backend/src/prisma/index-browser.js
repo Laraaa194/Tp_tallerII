@@ -126,7 +126,15 @@ exports.Prisma.ProductoScalarFieldEnum = {
   descripcion: 'descripcion',
   clasificacion: 'clasificacion',
   precio: 'precio',
-  imagenUrl: 'imagenUrl'
+  imagenUrl: 'imagenUrl',
+  stock: 'stock'
+};
+
+exports.Prisma.CarritoItemScalarFieldEnum = {
+  id: 'id',
+  cantidad: 'cantidad',
+  productoId: 'productoId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -163,7 +171,7 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
 
 exports.Prisma.ModelName = {
   Producto: 'Producto',
-  User: 'User'
+  CarritoItem: 'CarritoItem'
 };
 
 /**

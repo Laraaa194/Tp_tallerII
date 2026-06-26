@@ -2,6 +2,8 @@ import {Component, OnInit } from '@angular/core';
 import {FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {ValidationService } from '../../services/validation-service';
 import {NgClass } from '@angular/common';
+import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -15,8 +17,12 @@ export class LoginForm {
   isEmailInvalid: boolean = false;
   isPasswordInvalid: boolean = false;
   formValido:boolean = false;
+  mensajeError:string="";
+  mensajeErrorPassword: string = "";
+  mensajeErrorEmail: string = "";
 
-  constructor(private validationService: ValidationService) {}
+  constructor(private validationService: ValidationService, private authService: AuthService,
+    private router: Router) {}
 
   ngOnInit() {
   
@@ -24,21 +30,38 @@ export class LoginForm {
     this.form.valueChanges.subscribe(() => {
     this.chequearErrores();
     });
+    
   }
 
   private chequearErrores() {
     this.isEmailInvalid = this.validationService.isEmailInvalido();
     this.isPasswordInvalid = this.validationService.isPasswordInvalido();
     this.formValido = this.validationService.isFormValido();
+    if (this.isPasswordInvalid) {
+          this.mensajeErrorPassword = this.validationService.getMensajeErrorPassword();
+        }
+    if (this.isEmailInvalid) {
+          this.mensajeErrorEmail = this.validationService.getMensajeErrorEmail();
+        }    
+
   }
 
   validarEnvio() {
-    //TO DO : aca hay que llamar al servicio Auth para que haga la autenticacion con el usuario
-    //si responde false, se resetea el form y se muestra un mesja como que email o contraseña incorrecta
     if (this.validationService.isFormValido()) {
-        this.formValido = true;
-    } else {
-      this.validationService.resetForm();
+      const datosLogin = this.form.value; 
+      this.authService.login(datosLogin).subscribe({
+        next: (response) => {
+          console.log('¡Login exitoso en el backend!', response);
+          localStorage.setItem('token', response.token);
+          setTimeout(() => {
+          this.router.navigate(['/productos']); 
+        }, 3000);
+        },
+        error: (err) => {
+           this.mensajeError = err.error.message;
+          this.validationService.resetForm(); 
+        }
+      });
     }
   }
 }
