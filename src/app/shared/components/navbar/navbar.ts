@@ -1,7 +1,8 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
 import { CarritoService } from '../../../modules/carrito/services/carrito.service';
+import { Router, NavigationEnd, RouterLink } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,20 @@ import { CarritoService } from '../../../modules/carrito/services/carrito.servic
 
 })
 export class Navbar {
-  private carritoService = inject(CarritoService);
-  // Usamos el flujo de datos reactivo
-  cantidadItems = toSignal(this.carritoService.carrito$, { initialValue: [] });
+
+private router = inject(Router);
+  estaEnLogin: boolean = false;
+
+private carritoService = inject(CarritoService);
+cantidadItems = toSignal(this.carritoService.carrito$, { initialValue: [] });
+
+  constructor() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      this.estaEnLogin = event.urlAfterRedirects.includes('/login');
+    });
+  }
+
 }
+

@@ -14,7 +14,9 @@
       🛒
       <span class="cart-badge">{{ cantidadItems().length }}</span>
     </button>
-    <button class="btn-primary">Ingresar</button>
+    
+    <button class="btn-primary" [style.visibility]="estaEnLogin ? 'hidden' : 'visible'" routerLink="/login">Ingresar</button>
+  
   </div>
 
 </nav>
