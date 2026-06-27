@@ -1,0 +1,46 @@
+<div class="ver-carrito">
+
+  <h1 class="ver-carrito__titulo">Mi Carrito</h1>
+
+  @if (cargando) {
+    <p class="ver-carrito__cargando">Cargando carrito...</p>
+  } @else if (error) {
+    <div class="ver-carrito__vacio">
+      <p>Ocurrió un error al cargar tu carrito.</p>
+    </div>
+  } @else if (itemsCarrito.length === 0) {
+    <div class="ver-carrito__vacio">
+      <p>Tu carrito está vacío.</p>
+    </div>
+  } @else {
+
+    <div class="ver-carrito__lista">
+      @for (item of itemsCarrito; track item.productoId) {
+        <app-item-carrito-card
+          [item]="item"
+          (cantidadCambiada)="onCantidadCambiada($event)"
+          (eliminar)="onEliminarItem($event)">
+        </app-item-carrito-card>
+      }
+    </div>
+
+    <div class="ver-carrito__resumen">
+      <div class="ver-carrito__resumen-fila">
+        <span>Cantidad de productos:</span>
+        <span>{{ cantidadTotalItems }}</span>
+      </div>
+      <div class="ver-carrito__resumen-fila ver-carrito__resumen-total">
+        <span>Total:</span>
+        <span>${{ totalCarrito }}</span>
+      </div>
+
+      <button
+        class="ver-carrito__btn-finalizar"
+      >
+        Finalizar compra
+      </button>
+    </div>
+
+  }
+
+</div>

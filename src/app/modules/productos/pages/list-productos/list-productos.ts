@@ -20,10 +20,12 @@ export class ListProductos implements OnInit {
   public productos$!: Observable<Producto[]>;
   searchSubject = new Subject<string>();
 
-  // Definimos el flujo como una combinación de "inicial" + "búsqueda"
+  mensajeError = '';
+
+
  ngOnInit() {
   this.productos$ = this.searchSubject.pipe(
-    startWith(''), // <--- Esto emite un string vacío apenas te suscribes
+    startWith(''), 
     debounceTime(400),
     //distinctUntilChanged(),
     switchMap(termino => this.productosService.buscarProductos(termino)),

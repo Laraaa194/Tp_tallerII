@@ -10,7 +10,6 @@ generator client {
 
 datasource db {
 provider  = "mysql"
-
 }
 
 model Producto {
@@ -31,6 +30,9 @@ model CarritoItem {
   productoId Int
   producto   Producto @relation(fields: [productoId], references: [id])
 
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
   createdAt DateTime @default(now())
 }
 
@@ -42,5 +44,5 @@ model User {
   direccion String
   password  String
   createdAt DateTime @default(now())
-
+  carritoItems CarritoItem[]
 }

@@ -2,20 +2,20 @@ import { prisma } from "../prisma.js";
 
 export class CarritoRepository {
 
-  async addItem(productoId: number, cantidad: number) {
+  async addItem(productoId: number, cantidad: number, userId: string) {
     return prisma.carritoItem.create({
       data: {
         productoId,
-        cantidad
+        cantidad,
+        userId
       }
     });
   }
 
-  async getAll() {
+  async getAll(userId: string) {
     return prisma.carritoItem.findMany({
-      include: {
-        producto: true
-      }
+      where: { userId },
+      include: { producto: true }
     });
   }
 
@@ -25,16 +25,22 @@ export class CarritoRepository {
     });
   }
 
-   async findByProductoId(productoId: number) {
-    return prisma.carritoItem.findFirst({
-      where: { productoId }
-    });
-  }
+async findByProductoId(productoId: number, userId: string) {
+  return prisma.carritoItem.findFirst({
+    where: { productoId, userId }
+  });
+}
 
   async updateCantidad(id: number, cantidad: number) {
     return prisma.carritoItem.update({
       where: { id },
       data: { cantidad }
+    });
+  }
+
+  async findById(id: number) {
+    return prisma.carritoItem.findUnique({
+      where: { id }
     });
   }
 }
