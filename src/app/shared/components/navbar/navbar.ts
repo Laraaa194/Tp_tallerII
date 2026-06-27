@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { CarritoService } from '../../../modules/carrito/services/carrito.service';
 import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { CarritoItemResponse } from '../../../modules/carrito/interfaces/CarritoItemResponse';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +18,7 @@ private router = inject(Router);
   estaEnLogin: boolean = false;
 
 private carritoService = inject(CarritoService);
-cantidadItems = toSignal(this.carritoService.carrito$, { initialValue: [] });
+cantidadItems = toSignal(this.carritoService.carrito$, { initialValue: [] as CarritoItemResponse[] });
 
   constructor() {
     this.router.events.pipe(

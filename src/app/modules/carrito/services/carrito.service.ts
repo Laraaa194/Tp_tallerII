@@ -8,15 +8,14 @@ export class CarritoService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:3000';
   
-  // 1. Creamos el "Subject" que guardará el estado del carrito
+  
   private carritoSubject = new BehaviorSubject<CarritoItemResponse[]>([]);
   carrito$ = this.carritoSubject.asObservable();
 
   constructor() {
-    this.refrescarCarrito(); // Carga inicial
+    this.refrescarCarrito(); 
   }
 
-  // 2. Método para actualizar el estado global
   refrescarCarrito() {
     this.http.get<CarritoItemResponse[]>(`${this.apiUrl}/carrito`)
       .subscribe(items => this.carritoSubject.next(items));
