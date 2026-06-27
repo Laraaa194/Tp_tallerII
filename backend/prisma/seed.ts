@@ -1,12 +1,14 @@
 import 'dotenv/config';  
-
-console.log('DB_USER:', process.env.DB_USER);
-console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
 import { PrismaClient } from '../src/prisma/client.js';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { config } from '../src/config/config.js';
 
 const adapter = new PrismaMariaDb(config.db);
+console.log('host:', JSON.stringify(config.db.host));
+console.log('port:', JSON.stringify(config.db.port));
+console.log('user:', JSON.stringify(config.db.user));
+console.log('password length:', config.db.password?.length);
+console.log('database:', JSON.stringify(config.db.database));
 const prisma = new PrismaClient({ adapter });
 async function main() {
 

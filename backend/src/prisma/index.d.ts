@@ -1051,6 +1051,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    carritoItems: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    carritoItems?: boolean | UserCountOutputTypeCountCarritoItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCarritoItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CarritoItemWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -2106,6 +2137,7 @@ export namespace Prisma {
     id: number | null
     cantidad: number | null
     productoId: number | null
+    userId: string | null
     createdAt: Date | null
   }
 
@@ -2113,6 +2145,7 @@ export namespace Prisma {
     id: number | null
     cantidad: number | null
     productoId: number | null
+    userId: string | null
     createdAt: Date | null
   }
 
@@ -2120,6 +2153,7 @@ export namespace Prisma {
     id: number
     cantidad: number
     productoId: number
+    userId: number
     createdAt: number
     _all: number
   }
@@ -2141,6 +2175,7 @@ export namespace Prisma {
     id?: true
     cantidad?: true
     productoId?: true
+    userId?: true
     createdAt?: true
   }
 
@@ -2148,6 +2183,7 @@ export namespace Prisma {
     id?: true
     cantidad?: true
     productoId?: true
+    userId?: true
     createdAt?: true
   }
 
@@ -2155,6 +2191,7 @@ export namespace Prisma {
     id?: true
     cantidad?: true
     productoId?: true
+    userId?: true
     createdAt?: true
     _all?: true
   }
@@ -2249,6 +2286,7 @@ export namespace Prisma {
     id: number
     cantidad: number
     productoId: number
+    userId: string
     createdAt: Date
     _count: CarritoItemCountAggregateOutputType | null
     _avg: CarritoItemAvgAggregateOutputType | null
@@ -2275,8 +2313,10 @@ export namespace Prisma {
     id?: boolean
     cantidad?: boolean
     productoId?: boolean
+    userId?: boolean
     createdAt?: boolean
     producto?: boolean | ProductoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["carritoItem"]>
 
 
@@ -2285,23 +2325,27 @@ export namespace Prisma {
     id?: boolean
     cantidad?: boolean
     productoId?: boolean
+    userId?: boolean
     createdAt?: boolean
   }
 
-  export type CarritoItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cantidad" | "productoId" | "createdAt", ExtArgs["result"]["carritoItem"]>
+  export type CarritoItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cantidad" | "productoId" | "userId" | "createdAt", ExtArgs["result"]["carritoItem"]>
   export type CarritoItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     producto?: boolean | ProductoDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $CarritoItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CarritoItem"
     objects: {
       producto: Prisma.$ProductoPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       cantidad: number
       productoId: number
+      userId: string
       createdAt: Date
     }, ExtArgs["result"]["carritoItem"]>
     composites: {}
@@ -2644,6 +2688,7 @@ export namespace Prisma {
   export interface Prisma__CarritoItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     producto<T extends ProductoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductoDefaultArgs<ExtArgs>>): Prisma__ProductoClient<$Result.GetResult<Prisma.$ProductoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2676,6 +2721,7 @@ export namespace Prisma {
     readonly id: FieldRef<"CarritoItem", 'Int'>
     readonly cantidad: FieldRef<"CarritoItem", 'Int'>
     readonly productoId: FieldRef<"CarritoItem", 'Int'>
+    readonly userId: FieldRef<"CarritoItem", 'String'>
     readonly createdAt: FieldRef<"CarritoItem", 'DateTime'>
   }
     
@@ -3223,6 +3269,8 @@ export namespace Prisma {
     direccion?: boolean
     password?: boolean
     createdAt?: boolean
+    carritoItems?: boolean | User$carritoItemsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
 
@@ -3238,10 +3286,16 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "email" | "direccion" | "password" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    carritoItems?: boolean | User$carritoItemsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      carritoItems: Prisma.$CarritoItemPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       nombre: string
@@ -3590,6 +3644,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    carritoItems<T extends User$carritoItemsArgs<ExtArgs> = {}>(args?: Subset<T, User$carritoItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarritoItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3643,6 +3698,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -3661,6 +3720,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -3678,6 +3741,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -3727,6 +3794,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -3774,6 +3845,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which Users to fetch.
      */
@@ -3823,6 +3898,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The data needed to create a User.
      */
     data: XOR<UserCreateInput, UserUncheckedCreateInput>
@@ -3851,6 +3930,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -3892,6 +3975,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -3918,6 +4005,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -3938,6 +4029,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.carritoItems
+   */
+  export type User$carritoItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarritoItem
+     */
+    select?: CarritoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CarritoItem
+     */
+    omit?: CarritoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarritoItemInclude<ExtArgs> | null
+    where?: CarritoItemWhereInput
+    orderBy?: CarritoItemOrderByWithRelationInput | CarritoItemOrderByWithRelationInput[]
+    cursor?: CarritoItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CarritoItemScalarFieldEnum | CarritoItemScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3949,6 +4064,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -3983,6 +4102,7 @@ export namespace Prisma {
     id: 'id',
     cantidad: 'cantidad',
     productoId: 'productoId',
+    userId: 'userId',
     createdAt: 'createdAt'
   };
 
@@ -4018,6 +4138,13 @@ export namespace Prisma {
   };
 
   export type ProductoOrderByRelevanceFieldEnum = (typeof ProductoOrderByRelevanceFieldEnum)[keyof typeof ProductoOrderByRelevanceFieldEnum]
+
+
+  export const CarritoItemOrderByRelevanceFieldEnum: {
+    userId: 'userId'
+  };
+
+  export type CarritoItemOrderByRelevanceFieldEnum = (typeof CarritoItemOrderByRelevanceFieldEnum)[keyof typeof CarritoItemOrderByRelevanceFieldEnum]
 
 
   export const UserOrderByRelevanceFieldEnum: {
@@ -4150,16 +4277,21 @@ export namespace Prisma {
     id?: IntFilter<"CarritoItem"> | number
     cantidad?: IntFilter<"CarritoItem"> | number
     productoId?: IntFilter<"CarritoItem"> | number
+    userId?: StringFilter<"CarritoItem"> | string
     createdAt?: DateTimeFilter<"CarritoItem"> | Date | string
     producto?: XOR<ProductoScalarRelationFilter, ProductoWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type CarritoItemOrderByWithRelationInput = {
     id?: SortOrder
     cantidad?: SortOrder
     productoId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     producto?: ProductoOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    _relevance?: CarritoItemOrderByRelevanceInput
   }
 
   export type CarritoItemWhereUniqueInput = Prisma.AtLeast<{
@@ -4169,14 +4301,17 @@ export namespace Prisma {
     NOT?: CarritoItemWhereInput | CarritoItemWhereInput[]
     cantidad?: IntFilter<"CarritoItem"> | number
     productoId?: IntFilter<"CarritoItem"> | number
+    userId?: StringFilter<"CarritoItem"> | string
     createdAt?: DateTimeFilter<"CarritoItem"> | Date | string
     producto?: XOR<ProductoScalarRelationFilter, ProductoWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type CarritoItemOrderByWithAggregationInput = {
     id?: SortOrder
     cantidad?: SortOrder
     productoId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     _count?: CarritoItemCountOrderByAggregateInput
     _avg?: CarritoItemAvgOrderByAggregateInput
@@ -4192,6 +4327,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"CarritoItem"> | number
     cantidad?: IntWithAggregatesFilter<"CarritoItem"> | number
     productoId?: IntWithAggregatesFilter<"CarritoItem"> | number
+    userId?: StringWithAggregatesFilter<"CarritoItem"> | string
     createdAt?: DateTimeWithAggregatesFilter<"CarritoItem"> | Date | string
   }
 
@@ -4206,6 +4342,7 @@ export namespace Prisma {
     direccion?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
+    carritoItems?: CarritoItemListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4216,6 +4353,7 @@ export namespace Prisma {
     direccion?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    carritoItems?: CarritoItemOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
   }
 
@@ -4230,6 +4368,7 @@ export namespace Prisma {
     direccion?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
+    carritoItems?: CarritoItemListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -4333,12 +4472,14 @@ export namespace Prisma {
     cantidad?: number
     createdAt?: Date | string
     producto: ProductoCreateNestedOneWithoutCarritoItemsInput
+    user: UserCreateNestedOneWithoutCarritoItemsInput
   }
 
   export type CarritoItemUncheckedCreateInput = {
     id?: number
     cantidad?: number
     productoId: number
+    userId: string
     createdAt?: Date | string
   }
 
@@ -4346,12 +4487,14 @@ export namespace Prisma {
     cantidad?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     producto?: ProductoUpdateOneRequiredWithoutCarritoItemsNestedInput
+    user?: UserUpdateOneRequiredWithoutCarritoItemsNestedInput
   }
 
   export type CarritoItemUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     cantidad?: IntFieldUpdateOperationsInput | number
     productoId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4359,6 +4502,7 @@ export namespace Prisma {
     id?: number
     cantidad?: number
     productoId: number
+    userId: string
     createdAt?: Date | string
   }
 
@@ -4371,6 +4515,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     cantidad?: IntFieldUpdateOperationsInput | number
     productoId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4382,6 +4527,7 @@ export namespace Prisma {
     direccion: string
     password: string
     createdAt?: Date | string
+    carritoItems?: CarritoItemCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -4392,6 +4538,7 @@ export namespace Prisma {
     direccion: string
     password: string
     createdAt?: Date | string
+    carritoItems?: CarritoItemUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -4402,6 +4549,7 @@ export namespace Prisma {
     direccion?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    carritoItems?: CarritoItemUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -4412,6 +4560,7 @@ export namespace Prisma {
     direccion?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    carritoItems?: CarritoItemUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -4605,10 +4754,22 @@ export namespace Prisma {
     isNot?: ProductoWhereInput
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type CarritoItemOrderByRelevanceInput = {
+    fields: CarritoItemOrderByRelevanceFieldEnum | CarritoItemOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type CarritoItemCountOrderByAggregateInput = {
     id?: SortOrder
     cantidad?: SortOrder
     productoId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -4622,6 +4783,7 @@ export namespace Prisma {
     id?: SortOrder
     cantidad?: SortOrder
     productoId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -4629,6 +4791,7 @@ export namespace Prisma {
     id?: SortOrder
     cantidad?: SortOrder
     productoId?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -4756,6 +4919,12 @@ export namespace Prisma {
     connect?: ProductoWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutCarritoItemsInput = {
+    create?: XOR<UserCreateWithoutCarritoItemsInput, UserUncheckedCreateWithoutCarritoItemsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCarritoItemsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -4766,6 +4935,56 @@ export namespace Prisma {
     upsert?: ProductoUpsertWithoutCarritoItemsInput
     connect?: ProductoWhereUniqueInput
     update?: XOR<XOR<ProductoUpdateToOneWithWhereWithoutCarritoItemsInput, ProductoUpdateWithoutCarritoItemsInput>, ProductoUncheckedUpdateWithoutCarritoItemsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCarritoItemsNestedInput = {
+    create?: XOR<UserCreateWithoutCarritoItemsInput, UserUncheckedCreateWithoutCarritoItemsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCarritoItemsInput
+    upsert?: UserUpsertWithoutCarritoItemsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCarritoItemsInput, UserUpdateWithoutCarritoItemsInput>, UserUncheckedUpdateWithoutCarritoItemsInput>
+  }
+
+  export type CarritoItemCreateNestedManyWithoutUserInput = {
+    create?: XOR<CarritoItemCreateWithoutUserInput, CarritoItemUncheckedCreateWithoutUserInput> | CarritoItemCreateWithoutUserInput[] | CarritoItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CarritoItemCreateOrConnectWithoutUserInput | CarritoItemCreateOrConnectWithoutUserInput[]
+    createMany?: CarritoItemCreateManyUserInputEnvelope
+    connect?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+  }
+
+  export type CarritoItemUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CarritoItemCreateWithoutUserInput, CarritoItemUncheckedCreateWithoutUserInput> | CarritoItemCreateWithoutUserInput[] | CarritoItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CarritoItemCreateOrConnectWithoutUserInput | CarritoItemCreateOrConnectWithoutUserInput[]
+    createMany?: CarritoItemCreateManyUserInputEnvelope
+    connect?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+  }
+
+  export type CarritoItemUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CarritoItemCreateWithoutUserInput, CarritoItemUncheckedCreateWithoutUserInput> | CarritoItemCreateWithoutUserInput[] | CarritoItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CarritoItemCreateOrConnectWithoutUserInput | CarritoItemCreateOrConnectWithoutUserInput[]
+    upsert?: CarritoItemUpsertWithWhereUniqueWithoutUserInput | CarritoItemUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CarritoItemCreateManyUserInputEnvelope
+    set?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+    disconnect?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+    delete?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+    connect?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+    update?: CarritoItemUpdateWithWhereUniqueWithoutUserInput | CarritoItemUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CarritoItemUpdateManyWithWhereWithoutUserInput | CarritoItemUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CarritoItemScalarWhereInput | CarritoItemScalarWhereInput[]
+  }
+
+  export type CarritoItemUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CarritoItemCreateWithoutUserInput, CarritoItemUncheckedCreateWithoutUserInput> | CarritoItemCreateWithoutUserInput[] | CarritoItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CarritoItemCreateOrConnectWithoutUserInput | CarritoItemCreateOrConnectWithoutUserInput[]
+    upsert?: CarritoItemUpsertWithWhereUniqueWithoutUserInput | CarritoItemUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CarritoItemCreateManyUserInputEnvelope
+    set?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+    disconnect?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+    delete?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+    connect?: CarritoItemWhereUniqueInput | CarritoItemWhereUniqueInput[]
+    update?: CarritoItemUpdateWithWhereUniqueWithoutUserInput | CarritoItemUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CarritoItemUpdateManyWithWhereWithoutUserInput | CarritoItemUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CarritoItemScalarWhereInput | CarritoItemScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -4894,11 +5113,13 @@ export namespace Prisma {
   export type CarritoItemCreateWithoutProductoInput = {
     cantidad?: number
     createdAt?: Date | string
+    user: UserCreateNestedOneWithoutCarritoItemsInput
   }
 
   export type CarritoItemUncheckedCreateWithoutProductoInput = {
     id?: number
     cantidad?: number
+    userId: string
     createdAt?: Date | string
   }
 
@@ -4935,6 +5156,7 @@ export namespace Prisma {
     id?: IntFilter<"CarritoItem"> | number
     cantidad?: IntFilter<"CarritoItem"> | number
     productoId?: IntFilter<"CarritoItem"> | number
+    userId?: StringFilter<"CarritoItem"> | string
     createdAt?: DateTimeFilter<"CarritoItem"> | Date | string
   }
 
@@ -4960,6 +5182,31 @@ export namespace Prisma {
   export type ProductoCreateOrConnectWithoutCarritoItemsInput = {
     where: ProductoWhereUniqueInput
     create: XOR<ProductoCreateWithoutCarritoItemsInput, ProductoUncheckedCreateWithoutCarritoItemsInput>
+  }
+
+  export type UserCreateWithoutCarritoItemsInput = {
+    id?: string
+    nombre: string
+    apellido: string
+    email: string
+    direccion: string
+    password: string
+    createdAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutCarritoItemsInput = {
+    id?: string
+    nombre: string
+    apellido: string
+    email: string
+    direccion: string
+    password: string
+    createdAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutCarritoItemsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCarritoItemsInput, UserUncheckedCreateWithoutCarritoItemsInput>
   }
 
   export type ProductoUpsertWithoutCarritoItemsInput = {
@@ -4992,26 +5239,127 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number
   }
 
+  export type UserUpsertWithoutCarritoItemsInput = {
+    update: XOR<UserUpdateWithoutCarritoItemsInput, UserUncheckedUpdateWithoutCarritoItemsInput>
+    create: XOR<UserCreateWithoutCarritoItemsInput, UserUncheckedCreateWithoutCarritoItemsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCarritoItemsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCarritoItemsInput, UserUncheckedUpdateWithoutCarritoItemsInput>
+  }
+
+  export type UserUpdateWithoutCarritoItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    apellido?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    direccion?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutCarritoItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    apellido?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    direccion?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CarritoItemCreateWithoutUserInput = {
+    cantidad?: number
+    createdAt?: Date | string
+    producto: ProductoCreateNestedOneWithoutCarritoItemsInput
+  }
+
+  export type CarritoItemUncheckedCreateWithoutUserInput = {
+    id?: number
+    cantidad?: number
+    productoId: number
+    createdAt?: Date | string
+  }
+
+  export type CarritoItemCreateOrConnectWithoutUserInput = {
+    where: CarritoItemWhereUniqueInput
+    create: XOR<CarritoItemCreateWithoutUserInput, CarritoItemUncheckedCreateWithoutUserInput>
+  }
+
+  export type CarritoItemCreateManyUserInputEnvelope = {
+    data: CarritoItemCreateManyUserInput | CarritoItemCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CarritoItemUpsertWithWhereUniqueWithoutUserInput = {
+    where: CarritoItemWhereUniqueInput
+    update: XOR<CarritoItemUpdateWithoutUserInput, CarritoItemUncheckedUpdateWithoutUserInput>
+    create: XOR<CarritoItemCreateWithoutUserInput, CarritoItemUncheckedCreateWithoutUserInput>
+  }
+
+  export type CarritoItemUpdateWithWhereUniqueWithoutUserInput = {
+    where: CarritoItemWhereUniqueInput
+    data: XOR<CarritoItemUpdateWithoutUserInput, CarritoItemUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CarritoItemUpdateManyWithWhereWithoutUserInput = {
+    where: CarritoItemScalarWhereInput
+    data: XOR<CarritoItemUpdateManyMutationInput, CarritoItemUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type CarritoItemCreateManyProductoInput = {
     id?: number
     cantidad?: number
+    userId: string
     createdAt?: Date | string
   }
 
   export type CarritoItemUpdateWithoutProductoInput = {
     cantidad?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCarritoItemsNestedInput
   }
 
   export type CarritoItemUncheckedUpdateWithoutProductoInput = {
     id?: IntFieldUpdateOperationsInput | number
     cantidad?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CarritoItemUncheckedUpdateManyWithoutProductoInput = {
     id?: IntFieldUpdateOperationsInput | number
     cantidad?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CarritoItemCreateManyUserInput = {
+    id?: number
+    cantidad?: number
+    productoId: number
+    createdAt?: Date | string
+  }
+
+  export type CarritoItemUpdateWithoutUserInput = {
+    cantidad?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    producto?: ProductoUpdateOneRequiredWithoutCarritoItemsNestedInput
+  }
+
+  export type CarritoItemUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cantidad?: IntFieldUpdateOperationsInput | number
+    productoId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CarritoItemUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cantidad?: IntFieldUpdateOperationsInput | number
+    productoId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
