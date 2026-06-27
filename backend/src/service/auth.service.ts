@@ -13,20 +13,20 @@ export class AuthService {
 
     public async autenticarCredenciales(email: string, password: string): Promise<string | null> {
         const usuario = await this.usuarioRepository.findByUniqueEmail(email);
-      
+
         if (!usuario) {
-            return null; 
+            return null;
         }
         const passwordCorrecta = await bcrypt.compare(password, usuario.password);
         if (!passwordCorrecta) {
             return null;
         }
-        const payload = { 
-            id: usuario.id, 
+        const payload = {
+            id: usuario.id,
             email: usuario.email,
-            nombre: usuario.nombre 
+            nombre: usuario.nombre
         };
-        const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '2h' }); 
+        const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '2h' });
         return token;
     }
 }
