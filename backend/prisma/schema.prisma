@@ -42,5 +42,4 @@ model User {
   direccion String
   password  String
   createdAt DateTime @default(now())
-
 }
