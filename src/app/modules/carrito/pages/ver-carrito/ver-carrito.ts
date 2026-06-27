@@ -35,7 +35,6 @@ export class VerCarrito implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Ahora sí se limpia la suscripción correctamente al salir de la página
     if (this.sub) {
       this.sub.unsubscribe();
     }
@@ -67,13 +66,12 @@ export class VerCarrito implements OnInit, OnDestroy {
   onCantidadCambiada(itemActualizado: ItemCarrito): void {
     const carritoItemId = Number(itemActualizado.productoId);
     this.carritoService.actualizarCantidad(carritoItemId, itemActualizado.cantidad).subscribe();
-    // No hace falta llamar a cargarCarrito() aquí, 
-    // el servicio se encargará de emitir el nuevo valor a través de carrito$
+ 
   }
 
   onEliminarItem(productoId: string): void {
     const carritoItemId = Number(productoId);
     this.carritoService.eliminarItem(carritoItemId).subscribe();
-    // Lo mismo aquí, el servicio emite automáticamente al eliminar
+
   }
 }

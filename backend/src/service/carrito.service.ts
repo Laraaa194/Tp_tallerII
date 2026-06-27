@@ -6,7 +6,7 @@ const productoRepo = new ProductoRepository();
 
 export class CarritoService {
 
-    async addItem(productoId: number, cantidad: number) {
+    async addItem(productoId: number, cantidad: number, userId: string) {
     const producto = await productoRepo.findById(productoId);
 
     if (!producto) {
@@ -16,7 +16,7 @@ export class CarritoService {
       throw new Error("No hay stock disponible");
     }
 
-    const item = await repo.findByProductoId(productoId);
+    const item = await repo.findByProductoId(productoId, userId);
 
     await productoRepo.updateStock(
       producto.id,
@@ -30,11 +30,11 @@ export class CarritoService {
       );
     }
 
-    return repo.addItem(productoId, cantidad);
+    return repo.addItem(productoId, cantidad, userId);
   }
 
-  getAll() {
-    return repo.getAll();
+  getAll(userId: string) {
+    return repo.getAll(userId);
   }
 
    async updateCantidad(itemId: number, nuevaCantidad: number) {

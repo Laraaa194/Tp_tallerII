@@ -6,6 +6,10 @@ import { VerCarrito } from './modules/carrito/pages/ver-carrito/ver-carrito';
 
 export const routes: Routes = [
     {
+    path: '',
+    component: ListProductos
+    },
+    {
     path: 'productos',
     component: ListProductos
     },

@@ -23,7 +23,7 @@ export class CarritoService {
 
   agregarAlCarrito(productoId: number) {
     return this.http.post(`${this.apiUrl}/carrito`, { productoId, cantidad: 1 })
-      .pipe(tap(() => this.refrescarCarrito())); // Refresca al terminar
+      .pipe(tap(() => this.refrescarCarrito())); 
   }
 
   actualizarCantidad(id: number, cantidad: number) {
