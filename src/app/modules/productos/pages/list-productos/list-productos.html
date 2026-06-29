@@ -14,6 +14,27 @@
 
 <div class="productos-grid">
   @for (producto of productos$ | async; track producto.id) {
-    <app-producto-card [producto]="producto" (actualizado)="recargarProductos()"></app-producto-card>
+    <app-producto-card
+      [producto]="producto"
+      [esAdmin]="esAdmin"
+      (actualizado)="recargarProductos()"
+      (eliminarSolicitado)="pedirConfirmacionEliminar($event)">
+    </app-producto-card>
   }
 </div>
+
+@if (popup) {
+  <div class="popup">{{ popup }}</div>
+}
+
+@if (mostrarModal) {
+  <div class="modal-overlay">
+    <div class="confirmar">
+      <p class="confirmar-mensaje">¿Eliminar "{{ productoAEliminar?.nombre }}"? Esta acción también lo quitará de los carritos.</p>
+      <div class="confirmar-acciones">
+        <button class="btn-cancelar" (click)="cancelarEliminar()">Cancelar</button>
+        <button class="btn-confirmar" (click)="confirmarEliminar()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+}

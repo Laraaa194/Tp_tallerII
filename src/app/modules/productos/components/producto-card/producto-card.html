@@ -15,8 +15,14 @@
     <span>{{ producto.clasificacion }}</span>
 
     <button (click)="agregar(producto.id)">Agregar al carrito</button>
-    
+
+    <div *ngIf="esAdmin" class="admin-actions">
+      <button class="btn-editar" (click)="editar()">Editar</button>
+      <button class="btn-eliminar" (click)="eliminar()">Eliminar</button>
+    </div>
+
     @if (mensaje) {
     <div class="popup"> {{ mensaje }} </div>}
   </div>
 </div>
+
