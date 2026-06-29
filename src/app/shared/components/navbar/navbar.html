@@ -5,7 +5,12 @@
     INNOVA
   </a>
 
-    <div class="navbar-actions">
+  <h2 class="navbar-links">
+    <a href="/productos">Productos</a>
+    <a *ngIf="esAdmin" routerLink="/productos/nuevo">Nuevo producto</a>
+  </h2>
+
+  <div class="navbar-actions">
     <button class="cart-btn" routerLink="/carrito">
       🛒
       <span class="cart-badge">{{ cantidadItems().length }}</span>

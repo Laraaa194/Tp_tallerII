@@ -1,0 +1,14 @@
+<div class="form-container">
+  <h2>Editar producto</h2>
+
+  <div *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</div>
+  <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
+
+  <app-producto-form
+    [valorInicial]="producto"
+    textoBoton="Guardar cambios"
+    [mostrarCancelar]="true"
+    (enviar)="guardar($event)"
+    (cancelar)="router.navigate(['/productos'])">
+  </app-producto-form>
+</div>

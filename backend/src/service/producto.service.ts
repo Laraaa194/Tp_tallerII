@@ -5,18 +5,38 @@ const productoRepository = new ProductoRepository();
 export class ProductoService {
 
   async getProductos() {
-    try {
-      return await productoRepository.findAll();
-    } catch (error) {
-      throw new Error('Error al obtener los productos');
-    }
+    return productoRepository.findAll();
   }
 
   async buscarProductos(termino: string) {
-    try {
-      return await productoRepository.findByNombre(termino);
-    } catch (error) {
-      throw new Error('Error al buscar productos');
+    return productoRepository.findByNombre(termino);
+  }
+
+  async getProductoPorId(id: number) {
+    const producto = await productoRepository.findById(id);
+    if (!producto) {
+      throw new Error('Producto no encontrado');
     }
+    return producto;
+  }
+
+  async crearProducto(data: any) {
+    return productoRepository.crear(data);
+  }
+
+  async actualizarProducto(id: number, data: any) {
+    const existente = await productoRepository.findById(id);
+    if (!existente) {
+      throw new Error('Producto no encontrado');
+    }
+    return productoRepository.actualizar(id, data);
+  }
+
+  async eliminarProducto(id: number) {
+    const existente = await productoRepository.findById(id);
+    if (!existente) {
+      throw new Error('Producto no encontrado');
+    }
+    return productoRepository.eliminar(id);
   }
 }

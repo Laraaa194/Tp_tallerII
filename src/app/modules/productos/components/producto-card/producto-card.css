@@ -12,9 +12,8 @@
   flex-direction: column;
   gap:10px;
 
-  height: 55vh;
   transition: transform 0.2s ease, border-color 0.2s ease;
-   padding: 0; 
+  padding: 0;
   overflow: hidden;
 }
 
@@ -90,6 +89,32 @@
 
 .card button:hover {
   background-color: var(--color-accent-hover);
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.btn-editar {
+  flex: 1;
+  background-color: #f0ad00 !important;
+  color: #fff !important;
+}
+
+.btn-editar:hover {
+  background-color: #c98b00 !important;
+}
+
+.btn-eliminar {
+  flex: 1;
+  background-color: #e53935 !important;
+  color: #fff !important;
+}
+
+.btn-eliminar:hover {
+  background-color: #b71c1c !important;
 }
 
 .popup {

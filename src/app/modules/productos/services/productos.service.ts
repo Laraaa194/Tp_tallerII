@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../interfaces/producto';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -20,6 +20,22 @@ getProductos(): Observable<Producto[]> {
 buscarProductos(termino: string): Observable<Producto[]> {
   if (!termino.trim()) return this.getProductos();
   return this.http.get<Producto[]>(`${this.apiUrl}/buscar?termino=${termino}`);
+}
+
+getProductoPorId(id: number): Observable<Producto> {
+  return this.http.get<Producto>(`${this.apiUrl}/${id}`);
+}
+
+crearProducto(producto: Omit<Producto, 'id'>): Observable<Producto> {
+  return this.http.post<Producto>(this.apiUrl, producto);
+}
+
+actualizarProducto(id: number, producto: Omit<Producto, 'id'>): Observable<Producto> {
+  return this.http.put<Producto>(`${this.apiUrl}/${id}`, producto);
+}
+
+eliminarProducto(id: number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/${id}`);
 }
 
 }

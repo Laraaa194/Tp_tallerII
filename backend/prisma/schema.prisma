@@ -43,6 +43,12 @@ model User {
   email     String   @unique
   direccion String
   password  String
+  rol       Rol      @default(USER)
   createdAt DateTime @default(now())
   carritoItems CarritoItem[]
+}
+
+enum Rol {
+  USER
+  ADMIN
 }

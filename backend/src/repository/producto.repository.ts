@@ -1,13 +1,15 @@
 import { prisma } from '../prisma.js';
 
+const aProducto = (p: any) => ({
+  ...p,
+  precio: p.precio.toNumber()
+});
+
 export class ProductoRepository {
 
   async findAll() {
     const productos = await prisma.producto.findMany();
-    return productos.map(p => ({
-      ...p,
-      precio: p.precio.toNumber()
-    }));
+    return productos.map(aProducto);
   }
 
   async findByNombre(termino: string) {
@@ -18,22 +20,35 @@ export class ProductoRepository {
         }
       }
     });
-    return productos.map(p => ({
-      ...p,
-      precio: p.precio.toNumber()
-    }));
+    return productos.map(aProducto);
   }
 
   async findById(id: number) {
-  return prisma.producto.findUnique({
-    where: { id }
-  });
-}
+    const producto = await prisma.producto.findUnique({
+      where: { id }
+    });
+    return producto ? aProducto(producto) : null;
+  }
 
-async updateStock(id: number, stock: number) {
-  return prisma.producto.update({
-    where: { id },
-    data: { stock }
-  });
-}
+  async updateStock(id: number, stock: number) {
+    return prisma.producto.update({
+      where: { id },
+      data: { stock }
+    });
+  }
+
+  async crear(data: any) {
+    return prisma.producto.create({ data });
+  }
+
+  async actualizar(id: number, data: any) {
+    return prisma.producto.update({ where: { id }, data });
+  }
+
+  async eliminar(id: number) {
+    return prisma.$transaction([
+      prisma.carritoItem.deleteMany({ where: { productoId: id } }),
+      prisma.producto.delete({ where: { id } })
+    ]);
+  }
 }
