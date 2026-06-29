@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../interfaces/producto';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -23,24 +23,15 @@ buscarProductos(termino: string): Observable<Producto[]> {
 }
 
 crearProducto(producto: Omit<Producto, 'id'>): Observable<Producto> {
-  const token = localStorage.getItem('token');
-  return this.http.post<Producto>(this.apiUrl, producto, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+  return this.http.post<Producto>(this.apiUrl, producto);
 }
 
 actualizarProducto(id: number, producto: Omit<Producto, 'id'>): Observable<Producto> {
-  const token = localStorage.getItem('token');
-  return this.http.put<Producto>(`${this.apiUrl}/${id}`, producto, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+  return this.http.put<Producto>(`${this.apiUrl}/${id}`, producto);
 }
 
 eliminarProducto(id: number): Observable<any> {
-  const token = localStorage.getItem('token');
-  return this.http.delete(`${this.apiUrl}/${id}`, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+  return this.http.delete(`${this.apiUrl}/${id}`);
 }
 
 }
