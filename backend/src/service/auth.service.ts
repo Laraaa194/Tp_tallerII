@@ -21,10 +21,11 @@ export class AuthService {
         if (!passwordCorrecta) {
             return null;
         }
-        const payload = { 
-            id: usuario.id, 
+        const payload = {
+            id: usuario.id,
             email: usuario.email,
-            nombre: usuario.nombre 
+            nombre: usuario.nombre,
+            rol: usuario.rol
         };
         const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '2h' }); 
         return token;

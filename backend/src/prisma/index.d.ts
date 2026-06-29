@@ -30,6 +30,23 @@ export type CarritoItem = $Result.DefaultSelection<Prisma.$CarritoItemPayload>
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const Rol: {
+  USER: 'USER',
+  ADMIN: 'ADMIN'
+};
+
+export type Rol = (typeof Rol)[keyof typeof Rol]
+
+}
+
+export type Rol = $Enums.Rol
+
+export const Rol: typeof $Enums.Rol
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -3060,6 +3077,7 @@ export namespace Prisma {
     email: string | null
     direccion: string | null
     password: string | null
+    rol: $Enums.Rol | null
     createdAt: Date | null
   }
 
@@ -3070,6 +3088,7 @@ export namespace Prisma {
     email: string | null
     direccion: string | null
     password: string | null
+    rol: $Enums.Rol | null
     createdAt: Date | null
   }
 
@@ -3080,6 +3099,7 @@ export namespace Prisma {
     email: number
     direccion: number
     password: number
+    rol: number
     createdAt: number
     _all: number
   }
@@ -3092,6 +3112,7 @@ export namespace Prisma {
     email?: true
     direccion?: true
     password?: true
+    rol?: true
     createdAt?: true
   }
 
@@ -3102,6 +3123,7 @@ export namespace Prisma {
     email?: true
     direccion?: true
     password?: true
+    rol?: true
     createdAt?: true
   }
 
@@ -3112,6 +3134,7 @@ export namespace Prisma {
     email?: true
     direccion?: true
     password?: true
+    rol?: true
     createdAt?: true
     _all?: true
   }
@@ -3195,6 +3218,7 @@ export namespace Prisma {
     email: string
     direccion: string
     password: string
+    rol: $Enums.Rol
     createdAt: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
@@ -3222,6 +3246,7 @@ export namespace Prisma {
     email?: boolean
     direccion?: boolean
     password?: boolean
+    rol?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -3234,10 +3259,11 @@ export namespace Prisma {
     email?: boolean
     direccion?: boolean
     password?: boolean
+    rol?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "email" | "direccion" | "password" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "email" | "direccion" | "password" | "rol" | "createdAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -3249,6 +3275,7 @@ export namespace Prisma {
       email: string
       direccion: string
       password: string
+      rol: $Enums.Rol
       createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -3625,6 +3652,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly direccion: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly rol: FieldRef<"User", 'Rol'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
@@ -3996,6 +4024,7 @@ export namespace Prisma {
     email: 'email',
     direccion: 'direccion',
     password: 'password',
+    rol: 'rol',
     createdAt: 'createdAt'
   };
 
@@ -4062,6 +4091,13 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'Rol'
+   */
+  export type EnumRolFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Rol'>
     
 
 
@@ -4205,6 +4241,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     direccion?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    rol?: EnumRolFilter<"User"> | $Enums.Rol
     createdAt?: DateTimeFilter<"User"> | Date | string
   }
 
@@ -4215,6 +4252,7 @@ export namespace Prisma {
     email?: SortOrder
     direccion?: SortOrder
     password?: SortOrder
+    rol?: SortOrder
     createdAt?: SortOrder
     _relevance?: UserOrderByRelevanceInput
   }
@@ -4229,6 +4267,7 @@ export namespace Prisma {
     apellido?: StringFilter<"User"> | string
     direccion?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    rol?: EnumRolFilter<"User"> | $Enums.Rol
     createdAt?: DateTimeFilter<"User"> | Date | string
   }, "id" | "email">
 
@@ -4239,6 +4278,7 @@ export namespace Prisma {
     email?: SortOrder
     direccion?: SortOrder
     password?: SortOrder
+    rol?: SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -4255,6 +4295,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     direccion?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
+    rol?: EnumRolWithAggregatesFilter<"User"> | $Enums.Rol
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
@@ -4381,6 +4422,7 @@ export namespace Prisma {
     email: string
     direccion: string
     password: string
+    rol?: $Enums.Rol
     createdAt?: Date | string
   }
 
@@ -4391,6 +4433,7 @@ export namespace Prisma {
     email: string
     direccion: string
     password: string
+    rol?: $Enums.Rol
     createdAt?: Date | string
   }
 
@@ -4401,6 +4444,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     direccion?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    rol?: EnumRolFieldUpdateOperationsInput | $Enums.Rol
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4411,6 +4455,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     direccion?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    rol?: EnumRolFieldUpdateOperationsInput | $Enums.Rol
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4421,6 +4466,7 @@ export namespace Prisma {
     email: string
     direccion: string
     password: string
+    rol?: $Enums.Rol
     createdAt?: Date | string
   }
 
@@ -4431,6 +4477,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     direccion?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    rol?: EnumRolFieldUpdateOperationsInput | $Enums.Rol
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4441,6 +4488,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     direccion?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    rol?: EnumRolFieldUpdateOperationsInput | $Enums.Rol
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4652,6 +4700,13 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumRolFilter<$PrismaModel = never> = {
+    equals?: $Enums.Rol | EnumRolFieldRefInput<$PrismaModel>
+    in?: $Enums.Rol[]
+    notIn?: $Enums.Rol[]
+    not?: NestedEnumRolFilter<$PrismaModel> | $Enums.Rol
+  }
+
   export type UserOrderByRelevanceInput = {
     fields: UserOrderByRelevanceFieldEnum | UserOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -4665,6 +4720,7 @@ export namespace Prisma {
     email?: SortOrder
     direccion?: SortOrder
     password?: SortOrder
+    rol?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -4675,6 +4731,7 @@ export namespace Prisma {
     email?: SortOrder
     direccion?: SortOrder
     password?: SortOrder
+    rol?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -4685,7 +4742,18 @@ export namespace Prisma {
     email?: SortOrder
     direccion?: SortOrder
     password?: SortOrder
+    rol?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type EnumRolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Rol | EnumRolFieldRefInput<$PrismaModel>
+    in?: $Enums.Rol[]
+    notIn?: $Enums.Rol[]
+    not?: NestedEnumRolWithAggregatesFilter<$PrismaModel> | $Enums.Rol
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRolFilter<$PrismaModel>
+    _max?: NestedEnumRolFilter<$PrismaModel>
   }
 
   export type CarritoItemCreateNestedManyWithoutProductoInput = {
@@ -4766,6 +4834,10 @@ export namespace Prisma {
     upsert?: ProductoUpsertWithoutCarritoItemsInput
     connect?: ProductoWhereUniqueInput
     update?: XOR<XOR<ProductoUpdateToOneWithWhereWithoutCarritoItemsInput, ProductoUpdateWithoutCarritoItemsInput>, ProductoUncheckedUpdateWithoutCarritoItemsInput>
+  }
+
+  export type EnumRolFieldUpdateOperationsInput = {
+    set?: $Enums.Rol
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -4889,6 +4961,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRolFilter<$PrismaModel = never> = {
+    equals?: $Enums.Rol | EnumRolFieldRefInput<$PrismaModel>
+    in?: $Enums.Rol[]
+    notIn?: $Enums.Rol[]
+    not?: NestedEnumRolFilter<$PrismaModel> | $Enums.Rol
+  }
+
+  export type NestedEnumRolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Rol | EnumRolFieldRefInput<$PrismaModel>
+    in?: $Enums.Rol[]
+    notIn?: $Enums.Rol[]
+    not?: NestedEnumRolWithAggregatesFilter<$PrismaModel> | $Enums.Rol
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRolFilter<$PrismaModel>
+    _max?: NestedEnumRolFilter<$PrismaModel>
   }
 
   export type CarritoItemCreateWithoutProductoInput = {

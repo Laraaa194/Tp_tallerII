@@ -1,7 +1,5 @@
-import 'dotenv/config';  
-
-console.log('DB_USER:', process.env.DB_USER);
-console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
+import 'dotenv/config';
+import bcrypt from 'bcrypt';
 import { PrismaClient } from '../src/prisma/client.js';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { config } from '../src/config/config.js';
@@ -9,6 +7,24 @@ import { config } from '../src/config/config.js';
 const adapter = new PrismaMariaDb(config.db);
 const prisma = new PrismaClient({ adapter });
 async function main() {
+
+  const adminExistente = await prisma.user.findUnique({ where: { email: 'admin@admin.com' } });
+  if (!adminExistente) {
+    const hashedPassword = await bcrypt.hash('Admin1234!', 10);
+    await prisma.user.create({
+      data: {
+        nombre: 'Admin',
+        apellido: 'Sistema',
+        email: 'admin@admin.com',
+        direccion: 'Sistema',
+        password: hashedPassword,
+        rol: 'ADMIN'
+      }
+    });
+    console.log('✅ Usuario admin creado.');
+  } else {
+    console.log('⚠️ Admin ya existe, se omite.');
+  }
 
   const count = await prisma.producto.count();
 
