@@ -31,6 +31,9 @@ model CarritoItem {
   productoId Int
   producto   Producto @relation(fields: [productoId], references: [id])
 
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
   createdAt DateTime @default(now())
 }
 
@@ -43,6 +46,7 @@ model User {
   password  String
   rol       Rol      @default(USER)
   createdAt DateTime @default(now())
+  carritoItems CarritoItem[]
 }
 
 enum Rol {
