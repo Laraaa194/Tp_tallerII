@@ -1,4 +1,5 @@
 export interface ItemCarrito {
+  id: number;
   productoId: string;
   nombre: string;
   precio: number;

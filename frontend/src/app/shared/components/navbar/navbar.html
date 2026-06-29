@@ -8,7 +8,7 @@
     <div class="navbar-actions">
     <button class="cart-btn" routerLink="/carrito">
       🛒
-      <span class="cart-badge">{{ cantidadItems().length }}</span>
+      <span class="cart-badge">{{ cantidadItems() }}</span>
     </button>
     
     <button class="btn-primary" [style.visibility]="estaEnLogin ? 'hidden' : 'visible'" routerLink="/login">Ingresar</button>

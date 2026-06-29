@@ -11,28 +11,23 @@ export class ItemCarritoCard {
 
   @Input() item!: ItemCarrito;
  
-  // Emite el item con la cantidad ya actualizada, para que el padre
-  // (ver-carrito.component) actualice el estado global del carrito.
   @Output() cantidadCambiada = new EventEmitter<ItemCarrito>();
  
-  // Emite el id del producto a eliminar.
-  @Output() eliminar = new EventEmitter<string>();
+  @Output() eliminar = new EventEmitter<number>();
  
-  onIncrementar(): void {
-    if (this.item.cantidad < this.item.stock) {
-      this.item.cantidad++;
-      this.cantidadCambiada.emit(this.item);
-    }
+onIncrementar(): void {
+  if (this.item.stock > 0) {
+    this.cantidadCambiada.emit({ ...this.item, cantidad: this.item.cantidad + 1 });
   }
- 
-  onDecrementar(): void {
-    if (this.item.cantidad > 1) {
-      this.item.cantidad--;
-      this.cantidadCambiada.emit(this.item);
-    }
+}
+
+onDecrementar(): void {
+  if (this.item.cantidad > 1) {
+    this.cantidadCambiada.emit({ ...this.item, cantidad: this.item.cantidad - 1 });
   }
+}
  
   onEliminar(): void {
-    this.eliminar.emit(this.item.productoId);
+    this.eliminar.emit(this.item.id);
   }
 }

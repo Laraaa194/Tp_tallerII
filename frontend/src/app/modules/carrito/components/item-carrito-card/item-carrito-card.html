@@ -31,7 +31,7 @@
     <button
       class="carrito-item__btn-cantidad"
       (click)="onIncrementar()"
-      [disabled]="item.cantidad >= item.stock"
+      [disabled]="item.stock == 0"
       aria-label="Aumentar cantidad"
     >
       +

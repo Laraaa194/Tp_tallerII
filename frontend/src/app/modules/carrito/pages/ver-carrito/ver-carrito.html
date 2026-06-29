@@ -2,20 +2,20 @@
 
   <h1 class="ver-carrito__titulo">Mi Carrito</h1>
 
-  @if (cargando) {
+  @if (cargando()) {
     <p class="ver-carrito__cargando">Cargando carrito...</p>
-  } @else if (error) {
+  } @else if (error()) {
     <div class="ver-carrito__vacio">
       <p>Ocurrió un error al cargar tu carrito.</p>
     </div>
-  } @else if (itemsCarrito.length === 0) {
+  } @else if (itemsCarrito().length === 0) {
     <div class="ver-carrito__vacio">
       <p>Tu carrito está vacío.</p>
     </div>
   } @else {
 
     <div class="ver-carrito__lista">
-      @for (item of itemsCarrito; track item.productoId) {
+      @for (item of itemsCarrito(); track item.id) {
         <app-item-carrito-card
           [item]="item"
           (cantidadCambiada)="onCantidadCambiada($event)"
@@ -27,16 +27,14 @@
     <div class="ver-carrito__resumen">
       <div class="ver-carrito__resumen-fila">
         <span>Cantidad de productos:</span>
-        <span>{{ cantidadTotalItems }}</span>
+        <span>{{ cantidadTotalItems() }}</span>
       </div>
       <div class="ver-carrito__resumen-fila ver-carrito__resumen-total">
         <span>Total:</span>
-        <span>${{ totalCarrito }}</span>
+        <span>${{ totalCarrito() }}</span>
       </div>
 
-      <button
-        class="ver-carrito__btn-finalizar"
-      >
+      <button class="ver-carrito__btn-finalizar">
         Finalizar compra
       </button>
     </div>

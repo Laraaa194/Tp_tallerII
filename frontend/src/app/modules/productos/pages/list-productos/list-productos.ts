@@ -1,44 +1,35 @@
-import { Component, OnInit, inject, DestroyRef } from '@angular/core';
-import { Subject, Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs/operators';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AsyncPipe } from '@angular/common';
-import { ProductosService } from '../../services/productos.service';
 import { ProductoCard } from '../../components/producto-card/producto-card';
-import { Producto } from '../../interfaces/producto';
+import { ProductosService } from '../../services/productos.service';
 
 @Component({
   selector: 'app-list-productos',
-  imports: [ProductoCard , AsyncPipe],
+  imports: [ProductoCard], 
   templateUrl: './list-productos.html',
   styleUrl: './list-productos.css',
 })
 export class ListProductos implements OnInit {
-
-  private productosService = inject(ProductosService);
-  private destroyRef = inject(DestroyRef);
-  public productos$!: Observable<Producto[]>;
-  searchSubject = new Subject<string>();
-
+  public productosService = inject(ProductosService);
+   private destroyRef = inject(DestroyRef);
+  private searchSubject = new Subject<string>();
   mensajeError = '';
 
-
- ngOnInit() {
-  this.productos$ = this.searchSubject.pipe(
-    startWith(''), 
-    debounceTime(400),
-    //distinctUntilChanged(),
-    switchMap(termino => this.productosService.buscarProductos(termino)),
-    takeUntilDestroyed(this.destroyRef)
-  );
- }
+  ngOnInit() {
+    this.searchSubject.pipe(
+      debounceTime(400),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(termino => {
+      this.productosService.cargarProductos(termino);
+    });
+    
+    this.productosService.cargarProductos('');
+  }
 
   onInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.searchSubject.next(value);
   }
-
-  recargarProductos() {
-  this.searchSubject.next('');
-}
 }

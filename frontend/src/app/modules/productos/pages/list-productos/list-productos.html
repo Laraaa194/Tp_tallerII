@@ -12,7 +12,7 @@
 </div>
 
 @if (mensajeError) {
-  <div >
+  <div>
     <p class="mensaje-error">
       {{ mensajeError }}
       <span class="cerrar-error" (click)="mensajeError = ''">✕</span>
@@ -21,10 +21,10 @@
 }
 
 <div class="productos-grid">
-  @for (producto of productos$ | async; track producto.id) {
+  @for (producto of productosService.productos(); track producto.id) {
     <app-producto-card 
       [producto]="producto" 
-      (actualizado)="recargarProductos()"
+      (actualizado)="productosService.cargarProductos('')"
       (errorLogin)="mensajeError = $event">
     </app-producto-card>
   }
