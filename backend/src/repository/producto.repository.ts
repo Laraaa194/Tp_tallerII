@@ -36,4 +36,17 @@ async updateStock(id: number, stock: number) {
     data: { stock }
   });
 }
+
+async crear(data: { nombre: string; descripcion: string; clasificacion: string; precio: number; imagenUrl: string; stock: number }) {
+  return prisma.producto.create({ data });
+}
+
+async actualizar(id: number, data: { nombre: string; descripcion: string; clasificacion: string; precio: number; imagenUrl: string; stock: number }) {
+  return prisma.producto.update({ where: { id }, data });
+}
+
+async eliminar(id: number) {
+  await prisma.carritoItem.deleteMany({ where: { productoId: id } });
+  return prisma.producto.delete({ where: { id } });
+}
 }

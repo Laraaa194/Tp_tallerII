@@ -19,4 +19,28 @@ export class ProductoService {
       throw new Error('Error al buscar productos');
     }
   }
+
+  async crearProducto(data: { nombre: string; descripcion: string; clasificacion: string; precio: number; imagenUrl: string; stock: number }) {
+    try {
+      return await productoRepository.crear(data);
+    } catch (error) {
+      throw new Error('Error al crear el producto');
+    }
+  }
+
+  async actualizarProducto(id: number, data: { nombre: string; descripcion: string; clasificacion: string; precio: number; imagenUrl: string; stock: number }) {
+    try {
+      return await productoRepository.actualizar(id, data);
+    } catch (error) {
+      throw new Error('Error al actualizar el producto');
+    }
+  }
+
+  async eliminarProducto(id: number) {
+    try {
+      return await productoRepository.eliminar(id);
+    } catch (error) {
+      throw new Error('Error al eliminar el producto');
+    }
+  }
 }
