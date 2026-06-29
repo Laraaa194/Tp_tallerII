@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [class.sin-stock]="producto.stock === 0">
   <img [src]="'images/productos/' + producto.imagenUrl" 
        [alt]="producto.nombre" 
        class="card-image" />
@@ -10,13 +10,21 @@
       <strong class="card-price">${{ producto.precio }}</strong>
     </div>
     <p>{{ producto.descripcion }}</p>
-    <p> Cantidad en stock: {{producto.stock}}</p>
+    <p>Cantidad en stock: {{ producto.stock }}</p>
 
     <span>{{ producto.clasificacion }}</span>
 
-    <button (click)="agregar(producto.id)">Agregar al carrito</button>
+    <button 
+      (click)="agregar(producto.id)"
+      [disabled]="producto.stock === 0">
+      Agregar al carrito
+    </button>
     
     @if (mensaje) {
-    <div class="popup"> {{ mensaje }} </div>}
+      <div class="popup">{{ mensaje }}</div>
+    }
+   @if (producto.stock === 0 && !mensaje){
+      <div class="popup popup--error">Sin stock disponible</div>
+    }
   </div>
 </div>

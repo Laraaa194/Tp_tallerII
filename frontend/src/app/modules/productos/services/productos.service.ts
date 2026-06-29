@@ -1,25 +1,25 @@
-import { Injectable } from '@angular/core';
-import { Producto } from '../interfaces/producto';
-import { Observable, of } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Producto } from '../interfaces/producto';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProductosService {
+  private apiUrl = 'http://localhost:3000/api/productos';
 
-private apiUrl = 'http://localhost:3000/api/productos';
+  productos = signal<Producto[]>([]);
 
-constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
+  cargarProductos(termino: string = '') {
+    const url = termino.trim() ? `${this.apiUrl}/buscar?termino=${termino}` : this.apiUrl;
+    this.http.get<Producto[]>(url).subscribe(data => {
+      this.productos.set(data); 
+    });
+  }
 
-getProductos(): Observable<Producto[]> {
-  return this.http.get<Producto[]>(this.apiUrl);
-}
-
-buscarProductos(termino: string): Observable<Producto[]> {
-  if (!termino.trim()) return this.getProductos();
-  return this.http.get<Producto[]>(`${this.apiUrl}/buscar?termino=${termino}`);
-}
-
+  reducirStockLocal(productoId: number) {
+    this.productos.update(lista => 
+      lista.map(p => p.id === productoId ? { ...p, stock: p.stock - 1 } : p)
+    );
+  }
 }

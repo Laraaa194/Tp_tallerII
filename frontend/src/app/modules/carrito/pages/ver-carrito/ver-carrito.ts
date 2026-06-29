@@ -1,5 +1,4 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs'; // Importante importar Subscription
+import { Component, computed, inject } from '@angular/core';
 import { ItemCarrito } from '../../interfaces/ItemCarrito';
 import { CarritoService } from '../../services/carrito.service';
 import { CarritoItemResponse } from '../../interfaces/CarritoItemResponse';
@@ -11,37 +10,42 @@ import { ItemCarritoCard } from '../../components/item-carrito-card/item-carrito
   templateUrl: './ver-carrito.html',
   styleUrl: './ver-carrito.css',
 })
-export class VerCarrito implements OnInit, OnDestroy {
+export class VerCarrito {
   private carritoService = inject(CarritoService);
 
-  itemsCarrito: ItemCarrito[] = [];
-  cargando = true;
-  error = false;
+cargando = computed(() => this.carritoService.cargando());
+  error = computed(() => this.carritoService.error());
 
-  private sub: Subscription | null = null; // Definimos el tipo correctamente
+  itemsCarrito = computed(() => this.carritoService.carrito().map(i => this.mapearItem(i)));
 
-  ngOnInit(): void {
-    // Suscripción al flujo global del servicio
-    this.sub = this.carritoService.carrito$.subscribe({
-      next: (items) => {
-        this.itemsCarrito = items.map(i => this.mapearItem(i));
-        this.cargando = false;
-      },
-      error: () => {
-        this.error = true;
-        this.cargando = false;
+  totalCarrito = computed(() =>
+    this.itemsCarrito().reduce((acc, item) => acc + item.precio * item.cantidad, 0)
+  );
+
+  cantidadTotalItems = computed(() =>
+    this.itemsCarrito().reduce((acc, item) => acc + item.cantidad, 0)
+  );
+
+  onCantidadCambiada(itemActualizado: ItemCarrito): void {
+    this.carritoService.actualizarCantidad(itemActualizado.id, itemActualizado.cantidad).subscribe({
+      next: () => this.carritoService.refrescarCarrito(),
+      error: (err) => {
+        console.error(err);
+        this.carritoService.refrescarCarrito();
       }
     });
   }
 
-  ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
+  onEliminarItem(itemId: number): void {
+    this.carritoService.eliminarItem(itemId).subscribe({
+      next: () => this.carritoService.refrescarCarrito(),
+      error: () => this.carritoService.refrescarCarrito()
+    });
   }
 
   private mapearItem(item: CarritoItemResponse): ItemCarrito {
     return {
+      id: item.id,
       productoId: String(item.producto.id),
       nombre: item.producto.nombre,
       precio: item.producto.precio,
@@ -50,28 +54,5 @@ export class VerCarrito implements OnInit, OnDestroy {
       imagenUrl: item.producto.imagenUrl,
       categoria: item.producto.categoria
     };
-  }
-
-  get totalCarrito(): number {
-    return this.itemsCarrito.reduce(
-      (acc, item) => acc + item.precio * item.cantidad,
-      0
-    );
-  }
-
-  get cantidadTotalItems(): number {
-    return this.itemsCarrito.reduce((acc, item) => acc + item.cantidad, 0);
-  }
-
-  onCantidadCambiada(itemActualizado: ItemCarrito): void {
-    const carritoItemId = Number(itemActualizado.productoId);
-    this.carritoService.actualizarCantidad(carritoItemId, itemActualizado.cantidad).subscribe();
- 
-  }
-
-  onEliminarItem(productoId: string): void {
-    const carritoItemId = Number(productoId);
-    this.carritoService.eliminarItem(carritoItemId).subscribe();
-
   }
 }
