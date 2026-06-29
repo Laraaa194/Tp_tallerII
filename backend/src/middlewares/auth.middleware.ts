@@ -18,3 +18,12 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     res.status(401).json({ message: 'Token inválido' });
   }
 };
+
+export const requireAdmin = (req: Request, res: Response, next: NextFunction) => {
+  const user = (req as any).user;
+  if (user?.rol !== 'ADMIN') {
+    res.status(403).json({ message: 'Acceso restringido a administradores' });
+    return;
+  }
+  next();
+};
