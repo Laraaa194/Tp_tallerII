@@ -18,6 +18,7 @@ export class ProductoCard {
   @Input() esAdmin: boolean = false;
   @Output() actualizado = new EventEmitter<void>();
   @Output() eliminarSolicitado = new EventEmitter<Producto>();
+  @Output() errorLogin = new EventEmitter<string>();
 
   mensaje = '';
 
@@ -27,10 +28,16 @@ export class ProductoCard {
         next: () => {
           this.mensaje = '✅ Producto agregado al carrito';
           this.actualizado.emit();
-          setTimeout(() => { this.mensaje = ''; }, 1000);
+          setTimeout(() => {
+            this.mensaje = '';
+          }, 1000);
         },
         error: (err) => {
-          this.mensaje = 'No se pudo agregar, stock insuficiente';
+          if (err.status === 401) {
+            this.errorLogin.emit('Recordá que para agregar productos al carrito tenés que estar logueado 🛒');
+          } else {
+            this.mensaje = 'No se pudo agregar, stock insuficiente';
+          }
           console.error(err);
         }
       });
@@ -44,4 +51,3 @@ export class ProductoCard {
     this.eliminarSolicitado.emit(this.producto);
   }
 }
-

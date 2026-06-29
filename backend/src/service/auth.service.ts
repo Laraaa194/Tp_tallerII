@@ -13,9 +13,9 @@ export class AuthService {
 
     public async autenticarCredenciales(email: string, password: string): Promise<string | null> {
         const usuario = await this.usuarioRepository.findByUniqueEmail(email);
-      
+
         if (!usuario) {
-            return null; 
+            return null;
         }
         const passwordCorrecta = await bcrypt.compare(password, usuario.password);
         if (!passwordCorrecta) {
@@ -27,7 +27,7 @@ export class AuthService {
             nombre: usuario.nombre,
             rol: usuario.rol
         };
-        const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '2h' }); 
+        const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '2h' });
         return token;
     }
 }

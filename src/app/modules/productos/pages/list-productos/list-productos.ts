@@ -23,6 +23,7 @@ export class ListProductos implements OnInit {
   mostrarModal: boolean = false;
   productoAEliminar: Producto | null = null;
   popup: string = '';
+  mensajeError = '';
 
   ngOnInit() {
     const token = localStorage.getItem('token');

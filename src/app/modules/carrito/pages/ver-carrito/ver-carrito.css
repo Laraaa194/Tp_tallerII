@@ -1,0 +1,82 @@
+.ver-carrito {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ver-carrito__titulo {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.ver-carrito__cargando {
+  color: var(--color-text-secondary);
+}
+
+.ver-carrito__vacio {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.ver-carrito__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ver-carrito__resumen {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-self: flex-end;
+  width: 100%;
+  max-width: 320px;
+}
+
+.ver-carrito__resumen-fila {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.ver-carrito__resumen-total {
+  color: var(--color-text-primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.75rem;
+}
+
+.ver-carrito__resumen-total span:last-child {
+  color: var(--color-accent);
+}
+
+.ver-carrito__btn-finalizar {
+  margin-top: 0.5rem;
+  background-color: var(--color-accent);
+  color: var(--color-accent-text);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ver-carrito__btn-finalizar:hover {
+  background-color: var(--color-accent-hover);
+}

@@ -4,13 +4,21 @@
   gap: 1.5rem;
   padding: 2rem;
 }
-.titulo{
-  padding: 20px;
-  font-size: 25px;
-  margin-left: 10px;
+
+.header-tienda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
 }
 
-/* Estilos para el input de búsqueda */
+.titulo {
+  font-size: 1.575rem;
+  font-weight: 500;
+  color: var(--color-rosa);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
 .titulo h3 {
   font-size: 1.375rem;
   font-weight: 500;
@@ -21,10 +29,7 @@
 
 .buscador-wrapper {
   position: relative;
-  margin-bottom: 1.5rem;
-  width: 20%;
-  margin-left: 30px;
-
+  width: 25%;
 }
 
 .buscador-wrapper .search-icon {
@@ -139,3 +144,34 @@
 }
 
 .confirmar-acciones .btn-confirmar:hover { background: #b71c1c; }
+
+.mensaje-error {
+  position: relative;
+  width: 97%;
+  padding: 14px 20px 14px 20px;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  text-align: start;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cerrar-error {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #f4f0e4d0;
+  font-size: 1rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.cerrar-error:hover {
+  opacity: 1;
+}

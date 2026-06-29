@@ -1,16 +1,24 @@
-<div class="titulo">
-    <h3>Tienda</h3>
+<div class="header-tienda">
+  <h3 class="titulo">Tienda</h3>
+  <div class="buscador-wrapper">
+    <i class="bi bi-search search-icon"></i>
+    <input
+      class="buscador-productos"
+      type="text"
+      placeholder="Buscar productos..."
+      (input)="onInput($event)"
+    />
+  </div>
 </div>
 
-<div class="buscador-wrapper">
-  <i class="bi bi-search search-icon"></i>
-  <input
-    class="buscador-productos"
-    type="text"
-    placeholder="Buscar productos..."
-    (input)="onInput($event)"
-  />
-</div>
+@if (mensajeError) {
+  <div >
+    <p class="mensaje-error">
+      {{ mensajeError }}
+      <span class="cerrar-error" (click)="mensajeError = ''">✕</span>
+    </p>
+  </div>
+}
 
 <div class="productos-grid">
   @for (producto of productos$ | async; track producto.id) {
@@ -18,7 +26,8 @@
       [producto]="producto"
       [esAdmin]="esAdmin"
       (actualizado)="recargarProductos()"
-      (eliminarSolicitado)="pedirConfirmacionEliminar($event)">
+      (eliminarSolicitado)="pedirConfirmacionEliminar($event)"
+      (errorLogin)="mensajeError = $event">
     </app-producto-card>
   }
 </div>

@@ -4,8 +4,13 @@ import { LoginView } from './modules/login/pages/login-view/login-view';
 import { RegisterView } from './modules/register/pages/register-view';
 import { NuevoProducto } from './modules/productos/pages/nuevo-producto/nuevo-producto';
 import { EditarProducto } from './modules/productos/pages/editar-producto/editar-producto';
+import { VerCarrito } from './modules/carrito/pages/ver-carrito/ver-carrito';
 
 export const routes: Routes = [
+    {
+    path: '',
+    component: ListProductos
+    },
     {
     path: 'productos',
     component: ListProductos
@@ -24,6 +29,9 @@ export const routes: Routes = [
     {
       path: 'register',
       component: RegisterView
-    }
+    },
+
+    { path: 'carrito',
+    component: VerCarrito }
 ];
 
