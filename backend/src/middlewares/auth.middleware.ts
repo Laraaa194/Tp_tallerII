@@ -19,7 +19,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   }
 };
 
-export const requireAdmin = (req: Request, res: Response, next: NextFunction) => {
+export const rolMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const user = (req as any).user;
   if (user?.rol !== 'ADMIN') {
     res.status(403).json({ message: 'Acceso restringido a administradores' });
