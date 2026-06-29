@@ -1,52 +1,14 @@
 <div class="form-container">
   <h2>Editar producto</h2>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</div>
+  <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
 
-    <div class="form-group">
-      <label>Nombre *</label>
-      <input formControlName="nombre" type="text" />
-      <small *ngIf="enviado && f['nombre'].errors?.['required']">El nombre es obligatorio.</small>
-      <small *ngIf="enviado && f['nombre'].errors?.['minlength']">Mínimo 2 caracteres.</small>
-    </div>
-
-    <div class="form-group">
-      <label>Descripción *</label>
-      <textarea formControlName="descripcion"></textarea>
-      <small *ngIf="enviado && f['descripcion'].errors?.['required']">La descripción es obligatoria.</small>
-      <small *ngIf="enviado && f['descripcion'].errors?.['minlength']">Mínimo 5 caracteres.</small>
-    </div>
-
-    <div class="form-group">
-      <label>Clasificación *</label>
-      <input formControlName="clasificacion" type="text" />
-      <small *ngIf="enviado && f['clasificacion'].errors?.['required']">La clasificación es obligatoria.</small>
-    </div>
-
-    <div class="form-group">
-      <label>Precio *</label>
-      <input formControlName="precio" type="number" min="0.01" step="0.01" />
-      <small *ngIf="enviado && f['precio'].errors?.['required']">El precio es obligatorio.</small>
-      <small *ngIf="enviado && f['precio'].errors?.['min']">El precio debe ser mayor a 0.</small>
-    </div>
-
-    <div class="form-group">
-      <label>Stock</label>
-      <input formControlName="stock" type="number" min="0" />
-      <small *ngIf="enviado && f['stock'].errors?.['min']">El stock no puede ser negativo.</small>
-    </div>
-
-    <div class="form-group">
-      <label>Nombre de imagen</label>
-      <input formControlName="imagenUrl" type="text" />
-    </div>
-
-    <div *ngIf="mensajeExito" class="mensaje-exito">{{ mensajeExito }}</div>
-    <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
-
-    <div class="botones">
-      <button type="button" class="btn-cancelar" (click)="router.navigate(['/productos'])">Cancelar</button>
-      <button type="submit" class="btn-submit">Guardar cambios</button>
-    </div>
-  </form>
+  <app-producto-form
+    [valorInicial]="producto"
+    textoBoton="Guardar cambios"
+    [mostrarCancelar]="true"
+    (enviar)="guardar($event)"
+    (cancelar)="router.navigate(['/productos'])">
+  </app-producto-form>
 </div>

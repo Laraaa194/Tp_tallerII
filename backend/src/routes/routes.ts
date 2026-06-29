@@ -14,6 +14,7 @@ export class AppRoutes {
         const router = Router();
         router.get('/api/productos', productoController.getProductos);
         router.get('/api/productos/buscar', productoController.buscarProductos);
+        router.get('/api/productos/:id', productoController.obtenerProducto);
         router.post('/api/productos', authMiddleware, rolMiddleware, productoController.crearProducto);
         router.put('/api/productos/:id', authMiddleware, rolMiddleware, productoController.actualizarProducto);
         router.delete('/api/productos/:id', authMiddleware, rolMiddleware, productoController.eliminarProducto);

@@ -22,6 +22,10 @@ buscarProductos(termino: string): Observable<Producto[]> {
   return this.http.get<Producto[]>(`${this.apiUrl}/buscar?termino=${termino}`);
 }
 
+getProductoPorId(id: number): Observable<Producto> {
+  return this.http.get<Producto>(`${this.apiUrl}/${id}`);
+}
+
 crearProducto(producto: Omit<Producto, 'id'>): Observable<Producto> {
   return this.http.post<Producto>(this.apiUrl, producto);
 }

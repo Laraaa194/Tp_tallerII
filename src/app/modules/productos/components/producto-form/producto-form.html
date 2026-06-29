@@ -1,0 +1,45 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="form-group">
+    <label>Nombre *</label>
+    <input formControlName="nombre" type="text" placeholder="Nombre del producto" />
+    <small *ngIf="enviado && f['nombre'].errors?.['required']">El nombre es obligatorio.</small>
+    <small *ngIf="enviado && f['nombre'].errors?.['minlength']">Mínimo 2 caracteres.</small>
+  </div>
+
+  <div class="form-group">
+    <label>Descripción *</label>
+    <textarea formControlName="descripcion" placeholder="Descripción del producto"></textarea>
+    <small *ngIf="enviado && f['descripcion'].errors?.['required']">La descripción es obligatoria.</small>
+    <small *ngIf="enviado && f['descripcion'].errors?.['minlength']">Mínimo 5 caracteres.</small>
+  </div>
+
+  <div class="form-group">
+    <label>Clasificación *</label>
+    <input formControlName="clasificacion" type="text" placeholder="Ej: Remeras, Pantalones..." />
+    <small *ngIf="enviado && f['clasificacion'].errors?.['required']">La clasificación es obligatoria.</small>
+  </div>
+
+  <div class="form-group">
+    <label>Precio *</label>
+    <input formControlName="precio" type="number" placeholder="0.00" min="0.01" step="0.01" />
+    <small *ngIf="enviado && f['precio'].errors?.['required']">El precio es obligatorio.</small>
+    <small *ngIf="enviado && f['precio'].errors?.['min']">El precio debe ser mayor a 0.</small>
+  </div>
+
+  <div class="form-group">
+    <label>Stock</label>
+    <input formControlName="stock" type="number" placeholder="0" min="0" />
+    <small *ngIf="enviado && f['stock'].errors?.['min']">El stock no puede ser negativo.</small>
+  </div>
+
+  <div class="form-group">
+    <label>Nombre de imagen</label>
+    <input formControlName="imagenUrl" type="text" placeholder="Ej: remera-blanca.png" />
+  </div>
+
+  <div class="botones">
+    <button *ngIf="mostrarCancelar" type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
+    <button type="submit" class="btn-submit">{{ textoBoton }}</button>
+  </div>
+</form>

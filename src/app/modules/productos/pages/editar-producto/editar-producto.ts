@@ -1,61 +1,40 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductosService } from '../../services/productos.service';
+import { ProductoForm } from '../../components/producto-form/producto-form';
+import { Producto } from '../../interfaces/producto';
 
 @Component({
   selector: 'app-editar-producto',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ProductoForm],
   templateUrl: './editar-producto.html',
   styleUrl: './editar-producto.css'
 })
 export class EditarProducto implements OnInit {
-  private fb = inject(FormBuilder);
   private productosService = inject(ProductosService);
   router = inject(Router);
   private route = inject(ActivatedRoute);
 
   productoId!: number;
-  form: FormGroup = this.fb.group({
-    nombre:        ['', [Validators.required, Validators.minLength(2)]],
-    descripcion:   ['', [Validators.required, Validators.minLength(5)]],
-    clasificacion: ['', Validators.required],
-    precio:        [null, [Validators.required, Validators.min(0.01)]],
-    stock:         [0,    [Validators.required, Validators.min(0)]],
-    imagenUrl:     ['']
-  });
-
+  producto: Producto | null = null;
   mensajeExito: string = '';
   mensajeError: string = '';
-  enviado: boolean = false;
-
-  get f() { return this.form.controls; }
 
   ngOnInit() {
     this.productoId = Number(this.route.snapshot.paramMap.get('id'));
-    this.productosService.getProductos().subscribe({
-      next: (productos) => {
-        const producto = productos.find(p => p.id === this.productoId);
-        if (producto) {
-          this.form.patchValue(producto);
-        } else {
-          this.router.navigate(['/productos']);
-        }
-      },
+    this.productosService.getProductoPorId(this.productoId).subscribe({
+      next: (producto) => this.producto = producto,
       error: () => this.router.navigate(['/productos'])
     });
   }
 
-  onSubmit() {
-    this.enviado = true;
+  guardar(producto: Omit<Producto, 'id'>) {
     this.mensajeExito = '';
     this.mensajeError = '';
 
-    if (this.form.invalid) return;
-
-    this.productosService.actualizarProducto(this.productoId, this.form.value).subscribe({
+    this.productosService.actualizarProducto(this.productoId, producto).subscribe({
       next: () => {
         this.mensajeExito = '¡Producto actualizado con éxito!';
         setTimeout(() => this.router.navigate(['/productos']), 2000);
