@@ -22,4 +22,25 @@ buscarProductos(termino: string): Observable<Producto[]> {
   return this.http.get<Producto[]>(`${this.apiUrl}/buscar?termino=${termino}`);
 }
 
+crearProducto(producto: Omit<Producto, 'id'>): Observable<Producto> {
+  const token = localStorage.getItem('token');
+  return this.http.post<Producto>(this.apiUrl, producto, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+
+actualizarProducto(id: number, producto: Omit<Producto, 'id'>): Observable<Producto> {
+  const token = localStorage.getItem('token');
+  return this.http.put<Producto>(`${this.apiUrl}/${id}`, producto, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+
+eliminarProducto(id: number): Observable<any> {
+  const token = localStorage.getItem('token');
+  return this.http.delete(`${this.apiUrl}/${id}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+
 }
