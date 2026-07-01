@@ -1,17 +1,32 @@
 .login-form .login-btn{
     background-color: #F589EE;
-    font-family: 'Poppins';
     color: #171B24;
-    border: 1px solid #F589EE ;
-    border-radius: 7px;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: all 0.3s ease;
  }
 
-.login-form .login-btn:hover{
-    background-color: #171B24;
-    color: #fff;
-    border: 1px solid #fff ;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
- }
+.login-form .login-btn:hover:not(:disabled) {
+    background-color: #f7a3f1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 137, 238, 0.3);
+    color: #171B24;
+    border: none;
+}
+
+.login-form .login-btn:disabled {
+    background-color: #F589EE;
+    color: #171B24;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
 
 .login-form-label{
     color:#fff;
@@ -22,12 +37,12 @@
     border-radius: 7px;
     background-color: #373D47;
     border:none;
-    color:#fff; 
+    color:#fff;
 }
-  
+
 .login-form .login-form-input:focus{
-    outline: none; 
-    box-shadow: 0 0 3px #9c9c9c; 
+    outline: none;
+    box-shadow: 0 0 3px #9c9c9c;
     background-color: #373D47;
     border:none;
     color:#fff;

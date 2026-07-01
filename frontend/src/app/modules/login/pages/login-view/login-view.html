@@ -1,15 +1,38 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-10 col-md-6 col-lg-4 login-container p-4">
 
-    <div class="container mt-5"> 
-        <div class="row justify-content-center">
-        <div class="col-10 col-md-6 col-lg-4 login-container p-4">
-            <h1 class="text-center login-titulo">Ingresar</h1> 
-            <app-login-form></app-login-form>
-            <div class="container-pie-login mt-4 pt-2">
-            <a routerLink="/register" href="" class="text-center d-block pb-2 login-recuperar">Crear cuenta</a>
-            <a href="" class="text-center d-block login-recuperar">¿Olvidaste tu contraseña?</a>
-            </div>
+      @if (!loginExitoso) {
+        <h1 class="text-center login-titulo">Ingresar</h1>
 
+        <app-login-form (loginCompletado)="manejarLoginExitoso()"></app-login-form>
+
+        <div class="container-pie-login mt-4 pt-2">
+          <a routerLink="/register" class="text-center d-block pb-2 login-recuperar">Crear cuenta</a>
+          <a href="" class="text-center d-block login-recuperar">¿Olvidaste tu contraseña?</a>
         </div>
-        </div> 
-    </div>
+      } @else {
+        <div class="success-state">
+          <div class="success-icon-wrapper">
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+              <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+              <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+          </div>
 
+          <h2>¡Ingreso exitoso!</h2>
+
+          <div class="redirecting-loader mt-4">
+            <span>Redirigiendo a la tienda</span>
+            <div class="dots">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
+  </div>
+</div>

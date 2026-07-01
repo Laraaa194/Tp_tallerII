@@ -51,4 +51,8 @@ export class CarritoService {
   eliminarItem(id: number) {
     return this.http.delete(`${this.apiUrl}/carrito/${id}`);
   }
+
+  limpiarCarrito() {
+    this.carrito.set([]);
+  }
 }

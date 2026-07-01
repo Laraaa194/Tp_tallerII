@@ -10,7 +10,14 @@
     </div>
   } @else if (itemsCarrito().length === 0) {
     <div class="ver-carrito__vacio">
-      <p>Tu carrito está vacío.</p>
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ver-carrito__icono-vacio">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      <h2>Tu carrito está vacío</h2>
+      <p>Parece que aún no agregaste ningún producto. ¡Descubrí nuestras novedades!</p>
+      <button class="ver-carrito__btn-vacio" routerLink="/productos">Ir a la tienda</button>
     </div>
   } @else {
 
@@ -34,9 +41,14 @@
         <span>${{ totalCarrito() }}</span>
       </div>
 
-      <button class="ver-carrito__btn-finalizar">
-        Finalizar compra
-      </button>
+      <div class="ver-carrito__acciones">
+        <button class="ver-carrito__btn-finalizar">
+          Finalizar compra
+        </button>
+        <button class="ver-carrito__btn-seguir" routerLink="/productos">
+          Seguir comprando
+        </button>
+      </div>
     </div>
 
   }
