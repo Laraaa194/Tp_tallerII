@@ -3,10 +3,11 @@ import { ItemCarrito } from '../../interfaces/ItemCarrito';
 import { CarritoService } from '../../services/carrito.service';
 import { CarritoItemResponse } from '../../interfaces/CarritoItemResponse';
 import { ItemCarritoCard } from '../../components/item-carrito-card/item-carrito-card';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ver-carrito',
-  imports: [ItemCarritoCard],
+  imports: [ItemCarritoCard, RouterLink],
   templateUrl: './ver-carrito.html',
   styleUrl: './ver-carrito.css',
 })

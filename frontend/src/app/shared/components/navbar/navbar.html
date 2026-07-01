@@ -5,14 +5,50 @@
     INNOVA
   </a>
 
-    <div class="navbar-actions">
-    <button class="cart-btn" routerLink="/carrito">
-      🛒
-      <span class="cart-badge">{{ cantidadItems() }}</span>
-    </button>
-    
-    <button class="btn-primary" [style.visibility]="estaEnLogin ? 'hidden' : 'visible'" routerLink="/login">Ingresar</button>
-  
+  <div class="navbar-actions">
+
+    @if (estaEnProductos && estaLogueado) {
+      <button class="cart-btn" routerLink="/carrito">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge">{{ cantidadItems() }}</span>
+      </button>
+    }
+
+    @if (estaLogueado) {
+      <div class="user-dropdown-container">
+
+        <button class="user-trigger" (click)="toggleMenu()">
+          <div class="avatar-circle">
+            {{ nombreUsuario.charAt(0) }}
+          </div>
+          <span class="user-name">{{ nombreUsuario }}</span>
+          <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        @if (mostrarMenu) {
+          <div class="dropdown-menu glass-panel">
+            <button class="dropdown-item logout" (click)="cerrarSesion()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              Cerrar sesión
+            </button>
+          </div>
+        }
+
+      </div>
+    } @else {
+      <button class="btn-primary" [style.visibility]="estaEnAuth ? 'hidden' : 'visible'" routerLink="/login">Ingresar</button>
+    }
+
   </div>
 
 </nav>

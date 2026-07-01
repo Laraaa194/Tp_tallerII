@@ -1,9 +1,8 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {ValidationService } from '../../services/validation-service';
 import {NgClass } from '@angular/common';
 import { AuthService } from '../../services/auth-service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './login-form.css',
 })
 export class LoginForm {
- 
+
   form!: FormGroup;
   isEmailInvalid: boolean = false;
   isPasswordInvalid: boolean = false;
@@ -21,16 +20,18 @@ export class LoginForm {
   mensajeErrorPassword: string = "";
   mensajeErrorEmail: string = "";
 
-  constructor(private validationService: ValidationService, private authService: AuthService,
-    private router: Router) {}
+  @Output() loginCompletado = new EventEmitter<void>();
+
+  constructor(private validationService: ValidationService,
+    private authService: AuthService) {}
 
   ngOnInit() {
-  
+
     this.form = this.validationService.getForm();
     this.form.valueChanges.subscribe(() => {
     this.chequearErrores();
     });
-    
+
   }
 
   private chequearErrores() {
@@ -42,31 +43,24 @@ export class LoginForm {
         }
     if (this.isEmailInvalid) {
           this.mensajeErrorEmail = this.validationService.getMensajeErrorEmail();
-        }    
+        }
 
   }
 
   validarEnvio() {
     if (this.validationService.isFormValido()) {
-      const datosLogin = this.form.value; 
+      const datosLogin = this.form.value;
       this.authService.login(datosLogin).subscribe({
         next: (response) => {
           console.log('¡Login exitoso en el backend!', response);
           localStorage.setItem('token', response.token);
-          setTimeout(() => {
-          this.router.navigate(['/productos']); 
-        }, 3000);
+          this.loginCompletado.emit();
         },
         error: (err) => {
            this.mensajeError = err.error.message;
-          this.validationService.resetForm(); 
+          this.validationService.resetForm();
         }
       });
     }
   }
 }
-
-
-
-
-
